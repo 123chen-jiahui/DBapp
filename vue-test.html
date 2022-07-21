@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <style>
+        #wel {
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            line-height: 100%;
+            font-size: 80px;
+        }
+
+        #per {
+            width: 100%;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+        }
+
+        img {
+            width: 500px;
+            height: auto;
+            margin: 30px auto;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="counter">
+        已登录时长: {{counter}}秒
+    </div>
+    <img src="同济大学.svg" alt="">
+    <p id="wel">欢迎来到同济医疗管理信息系统</p>
+    <p id="per">开发人员：陈家辉，江昳昕，崔宇帆，克雷锰特，龙胡志远，莫孔昌，潘志强，王崧宇，赵中原，赵帅涛</p>
+    <script>
+        const Counter = {
+            data() {
+                return {
+                    counter: 0
+                }
+            },
+            mounted() {
+                setInterval(() => {
+                    this.counter++
+                }, 1000)
+            }
+        };
+        Vue.createApp(Counter).mount('#counter');
+    </script>
+</body>
+
+</html>
