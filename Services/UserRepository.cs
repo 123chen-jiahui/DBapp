@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Hospital.Services
 {
-    public class PatientRepository : IPatientRepository
+    public class UserRepository : IUserRepository
     {
         // 注入数据库服务依赖
         private readonly AppDbContext _context;
-        public PatientRepository(AppDbContext context)
+        public UserRepository(AppDbContext context)
         {
             _context = context;
         }
@@ -23,9 +23,24 @@ namespace Hospital.Services
         {
             return _context.Patients.Any(p => p.Id == patientId);
         }
+
+        public bool StaffExistsByGlobalId(string staffGlobalId)
+        {
+            return _context.Staff.Any(s => s.GlobalId == staffGlobalId);
+        }
+
+        public bool StaffExistsByStaffId(string staffId)
+        {
+            return _context.Staff.Any(s => s.Id == staffId);
+        }
         public void AddPatient(Patient patient)
         {
             _context.Patients.Add(patient);
+        }
+
+        public void AddStaff(Staff staff)
+        {
+            _context.Staff.Add(staff);
         }
 
         public Patient GetPatientByPatientId(int patientId)
@@ -36,6 +51,11 @@ namespace Hospital.Services
         public bool Save()
         {
             return (_context.SaveChanges() >= 0);
+        }
+
+        public Staff GetStaff(string staffId)
+        {
+            return _context.Staff.Where(s => s.Id == staffId).FirstOrDefault();
         }
     }
 }

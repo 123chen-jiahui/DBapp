@@ -22,7 +22,7 @@ namespace Hospital.Models
         [Column("PASSWORD")]
         [StringLength(15, MinimumLength = 8)]
         [Required]
-        public string PassWord { get; set; }
+        public string Password { get; set; }
         [Column("ROLE")]
         [Required]
         public Role Role { get; set; }

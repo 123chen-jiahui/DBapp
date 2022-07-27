@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Hospital.Dtos
 {
-    public class LoginForPatientDto
+    public class LoginForStaffDto
     {
         [Required]
-        public int Id { get; set; }
+        public string Id { get; set; }
         [Required]
         public string Password { get; set; }
 

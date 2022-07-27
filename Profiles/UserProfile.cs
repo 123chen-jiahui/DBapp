@@ -8,11 +8,12 @@ using System.Threading.Tasks;
 
 namespace Hospital.Profiles
 {
-    public class PatientProfile : Profile
+    public class UserProfile : Profile
     {
-        public PatientProfile()
+        public UserProfile()
         {
             CreateMap<RegisterForPatientDto, Patient>();
+            CreateMap<RegisterForStaffDto, Staff>();
         }
     }
 }

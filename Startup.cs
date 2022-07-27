@@ -60,7 +60,7 @@ namespace Hospital
                     new CamelCasePropertyNamesContractResolver();
             })
             .AddXmlDataContractSerializerFormatters(); // Ö§³Ö·µ»Øxml
-            services.AddTransient<IPatientRepository, PatientRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
 
 
 
