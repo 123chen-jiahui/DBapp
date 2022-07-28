@@ -35,6 +35,6 @@ namespace Hospital.Dtos
         [Required]
         public string Phone { get; set; }
         [Required]
-        public string DepartmentName { get; set; } // 科室信息，前端提供选项选择
+        public int DepartmentId { get; set; } // 科室信息，前端提供选项列表
     }
 }

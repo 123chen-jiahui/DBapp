@@ -1,50 +1,60 @@
 [
     {
+        "Id": 1,
         "name": "内科",
         "building": "1号楼",
         "phone": "11111111111"
     },
     {
+        "Id": 2,
         "name": "儿科",
         "building": "1号楼",
         "phone": "22222222222"
     },
     {
+        "Id": 3,
         "name": "皮肤科",
         "building": "1号楼",
         "phone": "33333333333"
     },
     {
+        "Id": 4,
         "name": "急诊科",
         "building": "1号楼",
         "phone": "44444444444"
     },
     {
+        "Id": 5,
         "name": "神经科",
         "building": "2号楼",
         "phone": "55555555555"
     },
     {
+        "Id": 6,
         "name": "中医科",
         "building": "2号楼",
         "phone": "66666666666"
     },
     {
+        "Id": 7,
         "name": "外科",
         "building": "2号楼",
         "phone": "77777777777"
     },
     {
+        "Id": 8,
         "name": "眼科",
         "building": "2号楼",
         "phone": "88888888888"
     },
     {
+        "Id": 9,
         "name": "口腔科",
         "building": "3号楼",
         "phone": "99999999999"
     },
     {
+        "Id": 10,
         "name": "妇科",
         "building": "3号楼",
         "phone": "00000000000"

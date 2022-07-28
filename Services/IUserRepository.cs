@@ -14,8 +14,10 @@ namespace Hospital.Services
         bool StaffExistsByStaffId(string staffId);
         void AddPatient(Patient patient);
         void AddStaff(Staff staff);
+        void AddRegistration(Registration reg);
         Patient GetPatientByPatientId(int patientId); // 根据病人Id获取病人model
         Staff GetStaff(string staffId);
+        public IEnumerable<Staff> GetStaffs(int departmentId);
         bool Save();
     }
 }

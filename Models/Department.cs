@@ -11,6 +11,9 @@ namespace Hospital.Models
     public class Department
     {
         [Key]
+        [Required]
+        [Column("ID")]
+        public int Id { get; set; }
         [Column("NAME")]
         [MaxLength(20)]
         [Required]
@@ -24,7 +27,7 @@ namespace Hospital.Models
         [Required]
         public string Phone { get; set; }
 
-        public ICollection<Staff> Staff { get; set; }
-        public ICollection<Ward> Wards { get; set; }
+        public ICollection<Staff> Staff { get; set; } = new List<Staff>();
+        public ICollection<Ward> Wards { get; set; } = new List<Ward>();
     }
 }

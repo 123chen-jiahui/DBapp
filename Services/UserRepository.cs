@@ -57,5 +57,17 @@ namespace Hospital.Services
         {
             return _context.Staff.Where(s => s.Id == staffId).FirstOrDefault();
         }
+
+        public IEnumerable<Staff> GetStaffs(int departmentId)
+        {
+            IQueryable<Staff> result = _context.Staff;
+            result.Where(s => s.DepartmentId == departmentId);
+            return result.ToList();
+        }
+
+        public void AddRegistration(Registration reg)
+        {
+            _context.Registrations.Add(reg);
+        }
     }
 }

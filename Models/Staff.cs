@@ -44,12 +44,13 @@ namespace Hospital.Models
         [StringLength(11, MinimumLength = 11)]
         public string Phone { get; set; }
 
-        [Column("DEPARTMENT_NAME")]
+        [Column("DEPARTMENT_ID")]
         [Required]
-        public string DepartmentName { get; set; } // 这是一个外键，注意添加上去
+        public int DepartmentId { get; set; } // 这是一个外键，注意添加上去
 
-        [ForeignKey("DepartmentName")]
+        [ForeignKey("DepartmentId")]
         public Department Department { get; set; }
-        
+
+        public ICollection<Registration> Registrations { get; set; } = new List<Registration>(); 
     }
 }

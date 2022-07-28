@@ -3,15 +3,17 @@ using System;
 using Hospital.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Oracle.EntityFrameworkCore.Metadata;
 
 namespace Hospital.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220728025548_AddRegistration")]
+    partial class AddRegistration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,11 +26,10 @@ namespace Hospital.Migrations
 
             modelBuilder.Entity("Hospital.Models.Department", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("NUMBER(10)")
-                        .HasColumnName("ID")
-                        .UseIdentityColumn();
+                    b.Property<string>("Name")
+                        .HasMaxLength(20)
+                        .HasColumnType("NVARCHAR2(20)")
+                        .HasColumnName("NAME");
 
                     b.Property<string>("Building")
                         .IsRequired()
@@ -36,91 +37,75 @@ namespace Hospital.Migrations
                         .HasColumnType("NVARCHAR2(20)")
                         .HasColumnName("BUILDING");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("NVARCHAR2(20)")
-                        .HasColumnName("NAME");
-
                     b.Property<string>("Phone")
                         .IsRequired()
                         .HasMaxLength(11)
                         .HasColumnType("NVARCHAR2(11)")
                         .HasColumnName("PHONE");
 
-                    b.HasKey("Id");
+                    b.HasKey("Name");
 
                     b.ToTable("DEPARTMENTS");
 
                     b.HasData(
                         new
                         {
-                            Id = 1,
-                            Building = "1号楼",
                             Name = "内科",
+                            Building = "1号楼",
                             Phone = "11111111111"
                         },
                         new
                         {
-                            Id = 2,
-                            Building = "1号楼",
                             Name = "儿科",
+                            Building = "1号楼",
                             Phone = "22222222222"
                         },
                         new
                         {
-                            Id = 3,
-                            Building = "1号楼",
                             Name = "皮肤科",
+                            Building = "1号楼",
                             Phone = "33333333333"
                         },
                         new
                         {
-                            Id = 4,
-                            Building = "1号楼",
                             Name = "急诊科",
+                            Building = "1号楼",
                             Phone = "44444444444"
                         },
                         new
                         {
-                            Id = 5,
-                            Building = "2号楼",
                             Name = "神经科",
+                            Building = "2号楼",
                             Phone = "55555555555"
                         },
                         new
                         {
-                            Id = 6,
-                            Building = "2号楼",
                             Name = "中医科",
+                            Building = "2号楼",
                             Phone = "66666666666"
                         },
                         new
                         {
-                            Id = 7,
-                            Building = "2号楼",
                             Name = "外科",
+                            Building = "2号楼",
                             Phone = "77777777777"
                         },
                         new
                         {
-                            Id = 8,
-                            Building = "2号楼",
                             Name = "眼科",
+                            Building = "2号楼",
                             Phone = "88888888888"
                         },
                         new
                         {
-                            Id = 9,
-                            Building = "3号楼",
                             Name = "口腔科",
+                            Building = "3号楼",
                             Phone = "99999999999"
                         },
                         new
                         {
-                            Id = 10,
-                            Building = "3号楼",
                             Name = "妇科",
+                            Building = "3号楼",
                             Phone = "00000000000"
                         });
                 });
@@ -223,9 +208,10 @@ namespace Hospital.Migrations
                         .HasColumnType("TIMESTAMP(7)")
                         .HasColumnName("BIRTHDAY");
 
-                    b.Property<int>("DepartmentId")
-                        .HasColumnType("NUMBER(10)")
-                        .HasColumnName("DEPARTMENT_ID");
+                    b.Property<string>("DepartmentName")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR2(20)")
+                        .HasColumnName("DEPARTMENT_NAME");
 
                     b.Property<int>("Gender")
                         .HasColumnType("NUMBER(10)")
@@ -260,7 +246,7 @@ namespace Hospital.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DepartmentId");
+                    b.HasIndex("DepartmentName");
 
                     b.ToTable("STAFF");
                 });
@@ -278,9 +264,10 @@ namespace Hospital.Migrations
                         .HasColumnType("NVARCHAR2(20)")
                         .HasColumnName("BUILDING");
 
-                    b.Property<int>("DepartmentId")
-                        .HasColumnType("NUMBER(10)")
-                        .HasColumnName("DEPARTMENT_ID");
+                    b.Property<string>("DepartmentName")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR2(20)")
+                        .HasColumnName("DEPARTMENT_NAME");
 
                     b.Property<int>("EndNum")
                         .HasColumnType("NUMBER(10)")
@@ -296,7 +283,7 @@ namespace Hospital.Migrations
 
                     b.HasKey("WardId");
 
-                    b.HasIndex("DepartmentId");
+                    b.HasIndex("DepartmentName");
 
                     b.ToTable("WARDS");
                 });
@@ -324,7 +311,7 @@ namespace Hospital.Migrations
                 {
                     b.HasOne("Hospital.Models.Department", "Department")
                         .WithMany("Staff")
-                        .HasForeignKey("DepartmentId")
+                        .HasForeignKey("DepartmentName")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -335,7 +322,7 @@ namespace Hospital.Migrations
                 {
                     b.HasOne("Hospital.Models.Department", "Department")
                         .WithMany("Wards")
-                        .HasForeignKey("DepartmentId")
+                        .HasForeignKey("DepartmentName")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

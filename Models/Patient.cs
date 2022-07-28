@@ -38,5 +38,7 @@ namespace Hospital.Models
         [StringLength(11, MinimumLength = 11)]
         public string Phone { get; set; }
         // 应该还需要加入病例
+
+        public ICollection<Registration> Registrations { get; set; } = new List<Registration>(); 
     }
 }
