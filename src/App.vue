@@ -12,7 +12,7 @@
     name: 'App',
     metaInfo: {
       title: 'App',
-      titleTemplate: '%s | Material Dashboard Free',
+      titleTemplate: '医院管理系统',
       htmlAttrs: { lang: 'ch' },
       meta: [
         { charset: 'utf-8' },

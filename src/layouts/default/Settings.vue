@@ -32,7 +32,7 @@
         width="300"
       >
         <v-card-text>
-          <strong class="mb-3 d-inline-block">SIDEBAR FILTERS</strong>
+          <strong class="mb-3 d-inline-block">主题颜色</strong>
 
           <v-item-group
             v-model="color"
@@ -57,7 +57,7 @@
 
           <v-divider class="my-4 secondary" />
 
-          <strong class="mb-3 d-inline-block">SIDEBAR BACKGROUND</strong>
+          <strong class="mb-3 d-inline-block">背景板颜色</strong>
 
           <v-item-group
             v-model="gradient"
@@ -88,7 +88,7 @@
             no-gutters
           >
             <v-col cols="auto">
-              Dark Mode
+              <strong> 黑夜模式</strong>
             </v-col>
 
             <v-spacer />
@@ -110,7 +110,7 @@
             no-gutters
           >
             <v-col cols="auto">
-              Sidebar Mini
+              <strong>功能板迷你模式</strong>
             </v-col>
 
             <v-spacer />
@@ -132,7 +132,7 @@
             no-gutters
           >
             <v-col cols="auto">
-              Sidebar Image
+              <strong>功能板图片</strong>
             </v-col>
 
             <v-spacer />
