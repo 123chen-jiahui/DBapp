@@ -60,9 +60,10 @@ namespace Hospital.Services
 
         public IEnumerable<Staff> GetStaffs(int departmentId)
         {
-            IQueryable<Staff> result = _context.Staff;
+            /*IQueryable<Staff> result = _context.Staff;
             result.Where(s => s.DepartmentId == departmentId);
-            return result.ToList();
+            return result.ToList();*/
+            return _context.Staff.Where(s => s.DepartmentId == departmentId).ToList();
         }
 
         public void AddRegistration(Registration reg)
