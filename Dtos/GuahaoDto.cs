@@ -8,8 +8,9 @@ namespace Hospital.Dtos
 {
     public class GuahaoDto
     {
-        [Required]
-        public Guid Id { get; set; }
+        // Id应该是数据库自动生成
+        // [Required]
+        // public Guid Id { get; set; }
         [Required]
         public DateTime Time { get; set; }
         [Required]
@@ -17,6 +18,6 @@ namespace Hospital.Dtos
         [Required]
         public int PatientId { get; set; }
         [Required]
-        public string StaffId { get; set; }
+        public int StaffId { get; set; }
     }
 }

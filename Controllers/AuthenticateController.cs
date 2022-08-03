@@ -99,13 +99,13 @@ namespace Hospital.Controllers
         [HttpPost("login_staff")]
         public IActionResult LoginForStaff([FromBody] LoginForStaffDto loginForStaffDto)
         {
-            var staff = _userRepository.GetStaff(loginForStaffDto.Id);
+            var staff = _userRepository.GetStaffByStaffId(loginForStaffDto.Id);
             if (staff == null || staff.Password != loginForStaffDto.Password)
             {
                 return BadRequest("用户名或密码错误");
             }
 
-            return Ok(CreateJwtToken(staff.Id, staff.Role.ToString()));
+            return Ok(CreateJwtToken(staff.Id.ToString(), staff.Role.ToString()));
         }
 
 
@@ -141,15 +141,15 @@ namespace Hospital.Controllers
             {
                 return BadRequest("身份证号已存在");
             }
-            else if (_userRepository.StaffExistsByStaffId(registerForStaffDto.Id))
+            /*else if (_userRepository.StaffExistsByStaffId(registerForStaffDto.Id))
             {
                 return BadRequest("用户名已存在");
-            }
+            }*/
             var staff = _mapper.Map<Staff>(registerForStaffDto);
             _userRepository.AddStaff(staff);
             _userRepository.Save();
 
-            return Ok();
+            return Ok(staff.Id);
         }
     }
 }

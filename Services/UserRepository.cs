@@ -29,10 +29,10 @@ namespace Hospital.Services
             return _context.Staff.Any(s => s.GlobalId == staffGlobalId);
         }
 
-        public bool StaffExistsByStaffId(string staffId)
+        /*public bool StaffExistsByStaffId(string staffId)
         {
             return _context.Staff.Any(s => s.Id == staffId);
-        }
+        }*/
         public void AddPatient(Patient patient)
         {
             _context.Patients.Add(patient);
@@ -53,7 +53,7 @@ namespace Hospital.Services
             return (_context.SaveChanges() >= 0);
         }
 
-        public Staff GetStaff(string staffId)
+        public Staff GetStaffByStaffId(int staffId)
         {
             return _context.Staff.Where(s => s.Id == staffId).FirstOrDefault();
         }

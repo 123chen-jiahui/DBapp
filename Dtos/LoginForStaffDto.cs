@@ -9,7 +9,7 @@ namespace Hospital.Dtos
     public class LoginForStaffDto
     {
         [Required]
-        public string Id { get; set; }
+        public int Id { get; set; }
         [Required]
         public string Password { get; set; }
 

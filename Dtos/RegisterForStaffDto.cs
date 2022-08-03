@@ -13,8 +13,8 @@ namespace Hospital.Dtos
         // 换句话说，不要带双引号！！！
 
         // 还没有进行数据验证，不是主要矛盾，所以现在没写，后续会补上
-        [Required]
-        public string Id { get; set; }
+        /*[Required]
+        public string Id { get; set; }*/
         [Required]
         public string GlobalId { get; set; }
         [Required]

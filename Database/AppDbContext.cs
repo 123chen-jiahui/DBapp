@@ -30,13 +30,21 @@ namespace Hospital.Database
                 .StartsAt(1000000)
                 .IncrementsBy(1);
             // modelBuilder.HasDefaultSchema("C##TEST");
+            modelBuilder.HasSequence("SEQ_STAFF_ID")
+                .StartsAt(2000000)
+                .IncrementsBy(1);
             modelBuilder.Entity<Patient>(entity =>
             {
                 entity.Property(o => o.Id)
                 .ValueGeneratedOnAdd()
                 .UseHiLo("SEQ_PATIENT_ID");
             });
-
+            modelBuilder.Entity<Staff>(entity =>
+            {
+                entity.Property(o => o.Id)
+                .ValueGeneratedOnAdd()
+                .UseHiLo("SEQ_STAFF_ID");
+            });
             // 添加科室数据
             // 读取json数据
             var departmentJsonData = File.ReadAllText(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"/Database/DepartmentMockData.json"); // 字符串前加@表示这是一个C#的string，不过我们还要获得当前项目的文件夹地址，需要用到C#的反射机制

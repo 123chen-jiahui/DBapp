@@ -10,11 +10,18 @@ namespace Hospital.Models
     [Table("STAFF")]
     public class Staff
     {
+        // 我觉得还需要加一个员工号来唯一表示员工
+        // 因为虽然用户名能唯一表示员工，但是总觉得很奇怪，不够统一
         [Key]
         [Column("ID")]
+        [Required]
+        public int Id { get; set; } // 员工号
+
+        /*// [Key]
+        [Column("USERNAME")]
         [StringLength(20, MinimumLength = 5)]
         [Required]
-        public string Id { get; set; } // 用户名
+        public string UserName { get; set; } // 用户名*/
         [Column("GLOBAL_ID")]
         [StringLength(18, MinimumLength = 18)]
         [Required]

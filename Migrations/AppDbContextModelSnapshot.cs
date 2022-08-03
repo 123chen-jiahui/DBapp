@@ -22,6 +22,9 @@ namespace Hospital.Migrations
             modelBuilder.HasSequence("SEQ_PATIENT_ID")
                 .StartsAt(1000000L);
 
+            modelBuilder.HasSequence("SEQ_STAFF_ID")
+                .StartsAt(2000000L);
+
             modelBuilder.Entity("Hospital.Models.Department", b =>
                 {
                     b.Property<int>("Id")
@@ -184,9 +187,8 @@ namespace Hospital.Migrations
                         .HasColumnType("NUMBER(10)")
                         .HasColumnName("PATIENT_ID");
 
-                    b.Property<string>("StaffId")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR2(20)")
+                    b.Property<int>("StaffId")
+                        .HasColumnType("NUMBER(10)")
                         .HasColumnName("STAFF_ID");
 
                     b.Property<DateTime>("Time")
@@ -208,10 +210,11 @@ namespace Hospital.Migrations
 
             modelBuilder.Entity("Hospital.Models.Staff", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasMaxLength(20)
-                        .HasColumnType("NVARCHAR2(20)")
-                        .HasColumnName("ID");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("NUMBER(10)")
+                        .HasColumnName("ID")
+                        .UseHiLo("SEQ_STAFF_ID");
 
                     b.Property<string>("Address")
                         .IsRequired()
