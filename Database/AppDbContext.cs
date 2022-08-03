@@ -24,6 +24,12 @@ namespace Hospital.Database
         public DbSet<Staff> Staff { get; set; }
         public DbSet<Ward> Wards { get; set; }
         public DbSet<Registration> Registrations { get; set; }
+        public DbSet<MedicalEquipment> MedicalEquipments { get; set; }
+        public DbSet<Medicine> Medicine { get; set; }
+        public DbSet<PurchaseList> PurchaseLists { get; set; }
+        public DbSet<PurchaseListItem> PurchaseListItems { get; set; }
+        public DbSet<Room> Rooms { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasSequence("SEQ_PATIENT_ID")

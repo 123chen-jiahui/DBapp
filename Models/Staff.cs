@@ -58,6 +58,7 @@ namespace Hospital.Models
         [ForeignKey("DepartmentId")]
         public Department Department { get; set; }
 
-        public ICollection<Registration> Registrations { get; set; } = new List<Registration>(); 
+        public ICollection<Registration> Registrations { get; set; }/* = new List<Registration>();*/ 
+        public ICollection<PurchaseList> PurchaseLists { get; set; }
     }
 }

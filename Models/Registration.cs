@@ -11,6 +11,7 @@ namespace Hospital.Models
     [Table("REGISTRATIONS")]
     public class Registration
     {
+        [Key]
         [Required]
         [Column("ID")]
         public Guid Id { get; set; }
