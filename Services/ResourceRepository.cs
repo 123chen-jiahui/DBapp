@@ -1,5 +1,6 @@
 ﻿using Hospital.Database;
 using Hospital.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,6 +35,18 @@ namespace Hospital.Services
         public void DeleteShoppingCartItem(LineItem lineItem)
         {
             _context.LineItems.Remove(lineItem);
+        }
+
+        public async Task<IEnumerable<LineItem>> GetShoppingCartItemsByItemIdListAsync(IEnumerable<int> lineItemIds)
+        {
+            return await _context.LineItems
+                .Where(li => lineItemIds.Contains(li.Id))
+                .ToListAsync();
+        }
+
+        public void DeleteShoppingCartItems(IEnumerable<LineItem> lineItems)
+        {
+            _context.LineItems.RemoveRange(lineItems);
         }
     }
 }

@@ -12,5 +12,7 @@ namespace Hospital.Services
         void AddShoppingCartItem(LineItem lineItem);
         LineItem GetShoppingCartItemByItemId(int lineItemId);
         void DeleteShoppingCartItem(LineItem lineItem);
+        Task<IEnumerable<LineItem>> GetShoppingCartItemsByItemIdListAsync(IEnumerable<int> lineItemIds);
+        void DeleteShoppingCartItems(IEnumerable<LineItem> lineItems);
     }
 }

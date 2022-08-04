@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FakeXiecheng.API.Helper;
 using Hospital.Dtos;
 using Hospital.Models;
 using Hospital.Services;
@@ -102,6 +103,25 @@ namespace Hospital.Controllers
             }
 
             _resourceRepository.DeleteShoppingCartItem(lineItem);
+            _userRepository.Save();
+
+            return NoContent();
+        }
+
+        [HttpDelete("items/{patientId}/({lineItemIds})")]
+        [Authorize(Roles = "Doctor")]   
+        public async Task<IActionResult> RemoveShoppingCartItems(
+            [FromRoute] int patientId,
+            [ModelBinder(BinderType = typeof(ArrayModelBinder))]
+            [FromRoute] IEnumerable<int> lineItemIds // 模板，将字符串列表转换为int列表
+        )
+        {
+            // 1. 批量获得购物车商品
+            // 2. 批量删除这些商品
+            // 所以需要添加两个接口
+
+            var items = await _resourceRepository.GetShoppingCartItemsByItemIdListAsync(lineItemIds);
+            _resourceRepository.DeleteShoppingCartItems(items);
             _userRepository.Save();
 
             return NoContent();
