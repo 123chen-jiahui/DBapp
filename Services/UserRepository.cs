@@ -1,5 +1,6 @@
 ﻿using Hospital.Database;
 using Hospital.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -69,6 +70,20 @@ namespace Hospital.Services
         public void AddRegistration(Registration reg)
         {
             _context.Registrations.Add(reg);
+        }
+
+        public async Task<ShoppingCart> GetShoppingCartByPatientId(int patientId)
+        {
+            return await _context.ShoppingCarts
+                .Include(s => s.Patient)
+                .Include(s => s.ShoppingCartItems).ThenInclude(li => li.Medicine)
+                .Where(s => s.PatientId == patientId)
+                .FirstOrDefaultAsync();
+        }
+
+        public void CreateShoppingCart(ShoppingCart shoppingCart)
+        {
+            _context.ShoppingCarts.Add(shoppingCart);
         }
     }
 }

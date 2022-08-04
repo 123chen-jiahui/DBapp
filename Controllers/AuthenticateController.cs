@@ -124,6 +124,16 @@ namespace Hospital.Controllers
             _userRepository.AddPatient(patient);
             _userRepository.Save();
 
+            // 初始化病人的购物车
+            var shoppingCart = new ShoppingCart()
+            {
+                Id = Guid.NewGuid(),
+                PatientId = patient.Id
+            };
+            // 调用数据仓库，将购物车添加进去
+            _userRepository.CreateShoppingCart(shoppingCart);
+            _userRepository.Save();
+
             // 将创建的Id返回
             return Ok(patient.Id);
         }

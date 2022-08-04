@@ -29,6 +29,8 @@ namespace Hospital.Database
         public DbSet<PurchaseList> PurchaseLists { get; set; }
         public DbSet<PurchaseListItem> PurchaseListItems { get; set; }
         public DbSet<Room> Rooms { get; set; }
+        public DbSet<ShoppingCart> ShoppingCarts { get; set; }
+        public DbSet<LineItem> LineItems { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -38,6 +40,9 @@ namespace Hospital.Database
             // modelBuilder.HasDefaultSchema("C##TEST");
             modelBuilder.HasSequence("SEQ_STAFF_ID")
                 .StartsAt(2000000)
+                .IncrementsBy(1);
+            modelBuilder.HasSequence("SEQ_LINEITEM_ID")
+                .StartsAt(1)
                 .IncrementsBy(1);
             modelBuilder.Entity<Patient>(entity =>
             {
@@ -50,6 +55,12 @@ namespace Hospital.Database
                 entity.Property(o => o.Id)
                 .ValueGeneratedOnAdd()
                 .UseHiLo("SEQ_STAFF_ID");
+            });
+            modelBuilder.Entity<LineItem>(entity =>
+            {
+                entity.Property(o => o.Id)
+                .ValueGeneratedOnAdd()
+                .UseHiLo("SEQ_LINEITEM_ID");
             });
             // 添加科室数据
             // 读取json数据

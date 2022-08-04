@@ -40,5 +40,6 @@ namespace Hospital.Models
         // 应该还需要加入病例
 
         public ICollection<Registration> Registrations { get; set; } = new List<Registration>(); 
+        public ShoppingCart ShoppingCart { get; set; }
     }
 }

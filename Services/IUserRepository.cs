@@ -18,6 +18,8 @@ namespace Hospital.Services
         Patient GetPatientByPatientId(int patientId); // 根据病人Id获取病人model
         Staff GetStaffByStaffId(int staffId);
         public IEnumerable<Staff> GetStaffs(int departmentId);
+        Task<ShoppingCart> GetShoppingCartByPatientId(int patientId);
+        void CreateShoppingCart(ShoppingCart shoppingCart);
         bool Save();
     }
 }
