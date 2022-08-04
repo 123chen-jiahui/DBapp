@@ -41,6 +41,7 @@ namespace Hospital.Controllers
             return Ok(_mapper.Map<ShoppingCartDto>(shoppingCart));
         }
 
+        // 向购物车中添加items
         [HttpPost("items/{PatientId}")]
         [Authorize(Roles = "Doctor")]
         public async Task<IActionResult> AddShoppingCartItem(
@@ -72,6 +73,38 @@ namespace Hospital.Controllers
             // 输出购物车新数据
             return Ok(_mapper.Map<ShoppingCartDto>(shoppingCart));
 
+        }
+
+        // 从购物车中删除商品
+        [HttpDelete("items/{patientId}/{lineItemId}")]
+        [Authorize(Roles = "Doctor")]
+        public async Task<IActionResult> DeleteShoppingCartItem(
+            [FromRoute] int patientId,
+            [FromRoute] int lineItemId
+        )
+        {
+            Console.WriteLine("itemId is {0}", lineItemId);
+            // patientId和itemId需要对应
+            // 比如对某个病人进行操作时，不能删除另一个病人购物车中的item
+
+            // 根据patientId获取ShoppingCart
+            var shoppingCart_1 = await _userRepository.GetShoppingCartByPatientId(patientId);
+            // 根据itemId获取整个LineItem
+            var lineItem = _resourceRepository.GetShoppingCartItemByItemId(lineItemId);
+            if (lineItem == null)
+            {
+                return NotFound("当前处方中无该项");
+            }
+            // 判断是否属于同一购物车
+            if (shoppingCart_1.Id != lineItem.ShoppingCartId)
+            {
+                return BadRequest("不能删除其他病人的处方");
+            }
+
+            _resourceRepository.DeleteShoppingCartItem(lineItem);
+            _userRepository.Save();
+
+            return NoContent();
         }
     }
 }

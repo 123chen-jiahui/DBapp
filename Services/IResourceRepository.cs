@@ -10,5 +10,7 @@ namespace Hospital.Services
     {
         Medicine GetMedicine(string medicineId);
         void AddShoppingCartItem(LineItem lineItem);
+        LineItem GetShoppingCartItemByItemId(int lineItemId);
+        void DeleteShoppingCartItem(LineItem lineItem);
     }
 }

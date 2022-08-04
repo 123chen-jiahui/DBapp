@@ -25,5 +25,15 @@ namespace Hospital.Services
         {
             _context.LineItems.Add(lineItem);
         }
+
+        public LineItem GetShoppingCartItemByItemId(int lineItemId)
+        {
+            return _context.LineItems.Where(li => li.Id == lineItemId).FirstOrDefault();
+        }
+
+        public void DeleteShoppingCartItem(LineItem lineItem)
+        {
+            _context.LineItems.Remove(lineItem);
+        }
     }
 }
