@@ -30,7 +30,10 @@ namespace Hospital.Models
         [MaxLength(40)]
         public string Indications { get; set; } // 适应症
         [Required]
+        [Column("MANUFACTURER")]
+        public string Manufacturer { get; set; }
+        /*[Required]
         [Column("ENTRY_TIME")]
-        public DateTime EntryTime { get; set; } // 入库时间
+        public DateTime EntryTime { get; set; } // 入库时间*/
     }
 }

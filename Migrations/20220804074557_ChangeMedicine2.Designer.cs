@@ -3,15 +3,17 @@ using System;
 using Hospital.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Oracle.EntityFrameworkCore.Metadata;
 
 namespace Hospital.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220804074557_ChangeMedicine2")]
+    partial class ChangeMedicine2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -229,35 +231,6 @@ namespace Hospital.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("MEDICINE");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "H19994016",
-                            Indications = "有炎症的患者",
-                            Inventory = 500,
-                            Manufacturer = "昆明贝克诺顿制药有限公司",
-                            Name = "阿莫西林克拉维酸钾片",
-                            Price = 20.00m
-                        },
-                        new
-                        {
-                            Id = "Z20040063",
-                            Indications = "用于治疗流行性感冒属热毒袭肺症",
-                            Inventory = 200,
-                            Manufacturer = "石家庄以岭药业股份有限公司",
-                            Name = "连花清瘟胶囊",
-                            Price = 15.00m
-                        },
-                        new
-                        {
-                            Id = "Z50020615",
-                            Indications = "用于外感风热所致的咳嗽",
-                            Inventory = 350,
-                            Manufacturer = "太极集团重庆涪陵制药厂有限公司",
-                            Name = "急支糖浆",
-                            Price = 25.00m
-                        });
                 });
 
             modelBuilder.Entity("Hospital.Models.Patient", b =>

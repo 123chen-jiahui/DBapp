@@ -1,0 +1,26 @@
+[
+    {
+        "Id": "H19994016",
+        "Name": "阿莫西林克拉维酸钾片",
+        "Price": 20.00,
+        "Inventory": 500,
+        "Indications": "有炎症的患者",
+        "Manufacturer": "昆明贝克诺顿制药有限公司"
+    },
+    {
+        "Id": "Z20040063",
+        "Name": "连花清瘟胶囊",
+        "Price": 15.00,
+        "Inventory": 200,
+        "Indications": "用于治疗流行性感冒属热毒袭肺症",
+        "Manufacturer": "石家庄以岭药业股份有限公司"
+    },
+    {
+        "Id": "Z50020615",
+        "Name": "急支糖浆",
+        "Price": 25.00,
+        "Inventory": 350,
+        "Indications": "用于外感风热所致的咳嗽",
+        "Manufacturer": "太极集团重庆涪陵制药厂有限公司"
+    }
+]
