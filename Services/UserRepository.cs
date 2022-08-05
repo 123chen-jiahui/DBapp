@@ -16,18 +16,18 @@ namespace Hospital.Services
         {
             _context = context;
         }
-        public bool PatientExistsByGlobalId(string patientGlobalId)
+        public async Task<bool> PatientExistsByGlobalIdAsync(string patientGlobalId)
         {
-            return _context.Patients.Any(p => p.GlobalId == patientGlobalId);
+            return await _context.Patients.AnyAsync(p => p.GlobalId == patientGlobalId);
         }
-        public bool PatientExistsByPatientId(int patientId)
+        public async Task<bool> PatientExistsByPatientIdAsync(int patientId)
         {
-            return _context.Patients.Any(p => p.Id == patientId);
+            return await _context.Patients.AnyAsync(p => p.Id == patientId);
         }
 
-        public bool StaffExistsByGlobalId(string staffGlobalId)
+        public async Task<bool> StaffExistsByGlobalIdAsync(string staffGlobalId)
         {
-            return _context.Staff.Any(s => s.GlobalId == staffGlobalId);
+            return await _context.Staff.AnyAsync(s => s.GlobalId == staffGlobalId);
         }
 
         /*public bool StaffExistsByStaffId(string staffId)
@@ -44,27 +44,27 @@ namespace Hospital.Services
             _context.Staff.Add(staff);
         }
 
-        public Patient GetPatientByPatientId(int patientId)
+        public async Task<Patient> GetPatientByPatientIdAsync(int patientId)
         {
-            return _context.Patients.Where(p => p.Id == patientId).FirstOrDefault(); // 一定要加FirstOrDefault来执行sql语句
+            return await _context.Patients.Where(p => p.Id == patientId).FirstOrDefaultAsync(); // 一定要加FirstOrDefault来执行sql语句
         }
 
-        public bool Save()
+        public async Task<bool> SaveAsync()
         {
-            return (_context.SaveChanges() >= 0);
+            return (await _context.SaveChangesAsync() >= 0);
         }
 
-        public Staff GetStaffByStaffId(int staffId)
+        public async Task<Staff> GetStaffByStaffIdAsync(int staffId)
         {
-            return _context.Staff.Where(s => s.Id == staffId).FirstOrDefault();
+            return await _context.Staff.Where(s => s.Id == staffId).FirstOrDefaultAsync();
         }
 
-        public IEnumerable<Staff> GetStaffs(int departmentId)
+        public async Task<IEnumerable<Staff>> GetStaffsAsync(int departmentId)
         {
             /*IQueryable<Staff> result = _context.Staff;
             result.Where(s => s.DepartmentId == departmentId);
             return result.ToList();*/
-            return _context.Staff.Where(s => s.DepartmentId == departmentId).ToList();
+            return await _context.Staff.Where(s => s.DepartmentId == departmentId).ToListAsync();
         }
 
         public void AddRegistration(Registration reg)
@@ -72,7 +72,7 @@ namespace Hospital.Services
             _context.Registrations.Add(reg);
         }
 
-        public async Task<ShoppingCart> GetShoppingCartByPatientId(int patientId)
+        public async Task<ShoppingCart> GetShoppingCartByPatientIdAsync(int patientId)
         {
             return await _context.ShoppingCarts
                 .Include(s => s.Patient)

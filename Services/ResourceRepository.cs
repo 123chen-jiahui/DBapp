@@ -17,9 +17,9 @@ namespace Hospital.Services
             _context = context;
         }
 
-        public Medicine GetMedicine(string medicineId)
+        public async Task<Medicine> GetMedicineAsync(string medicineId)
         {
-            return _context.Medicine.Where(m => m.Id == medicineId).FirstOrDefault();
+            return await _context.Medicine.Where(m => m.Id == medicineId).FirstOrDefaultAsync();
         }
 
         public void AddShoppingCartItem(LineItem lineItem)
@@ -27,9 +27,9 @@ namespace Hospital.Services
             _context.LineItems.Add(lineItem);
         }
 
-        public LineItem GetShoppingCartItemByItemId(int lineItemId)
+        public async Task<LineItem> GetShoppingCartItemByItemIdAsync(int lineItemId)
         {
-            return _context.LineItems.Where(li => li.Id == lineItemId).FirstOrDefault();
+            return await _context.LineItems.Where(li => li.Id == lineItemId).FirstOrDefaultAsync();
         }
 
         public void DeleteShoppingCartItem(LineItem lineItem)

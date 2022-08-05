@@ -25,10 +25,10 @@ namespace Hospital.Controllers
         }
 
         [HttpGet("{DepartmentId}")]
-        public IActionResult GetStafffs([FromRoute] int departmentId) // 路由都是string
+        public async Task<IActionResult> GetStafffs([FromRoute] int departmentId) // 路由都是string
         {
             // int Id = Convert.ToInt32(departmentId);
-            var staffsFromRepo = _userRepository.GetStaffs(departmentId);
+            var staffsFromRepo = await _userRepository.GetStaffsAsync(departmentId);
             if (staffsFromRepo == null || staffsFromRepo.Count() <= 0)
             {
                 return NotFound("找不到任何医生");

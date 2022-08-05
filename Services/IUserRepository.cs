@@ -8,18 +8,18 @@ namespace Hospital.Services
 {
     public interface IUserRepository
     {
-        bool PatientExistsByGlobalId(string patientGlobalId); // 根据身份证号查找病人是否存在
-        bool PatientExistsByPatientId(int patientId);
-        bool StaffExistsByGlobalId(string staffGlobalId);
+        Task<bool> PatientExistsByGlobalIdAsync(string patientGlobalId); // 根据身份证号查找病人是否存在
+        Task<bool> PatientExistsByPatientIdAsync(int patientId);
+        Task<bool> StaffExistsByGlobalIdAsync(string staffGlobalId);
         // bool StaffExistsByStaffId(string staffId);
         void AddPatient(Patient patient);
         void AddStaff(Staff staff);
         void AddRegistration(Registration reg);
-        Patient GetPatientByPatientId(int patientId); // 根据病人Id获取病人model
-        Staff GetStaffByStaffId(int staffId);
-        public IEnumerable<Staff> GetStaffs(int departmentId);
-        Task<ShoppingCart> GetShoppingCartByPatientId(int patientId);
+        Task<Patient> GetPatientByPatientIdAsync(int patientId); // 根据病人Id获取病人model
+        Task<Staff> GetStaffByStaffIdAsync(int staffId);
+        Task<IEnumerable<Staff>> GetStaffsAsync(int departmentId);
+        Task<ShoppingCart> GetShoppingCartByPatientIdAsync(int patientId);
         void CreateShoppingCart(ShoppingCart shoppingCart);
-        bool Save();
+        Task<bool> SaveAsync();
     }
 }

@@ -35,7 +35,7 @@ namespace Hospital.Controllers
         public async Task<IActionResult> GetShoppingCart([FromRoute] int patientId)
         {
             // 获得购物车
-            var shoppingCart = await _userRepository.GetShoppingCartByPatientId(patientId);
+            var shoppingCart = await _userRepository.GetShoppingCartByPatientIdAsync(patientId);
             // 病人的购物车从来没有被初始化过，需要在用户注册时初始化
 
             // 输出ShoppingCart的具体信息，所以需要ShoppingCartDto
@@ -51,11 +51,11 @@ namespace Hospital.Controllers
         )
         {
             // 获得购物车
-            var shoppingCart = await _userRepository.GetShoppingCartByPatientId(patientId);
+            var shoppingCart = await _userRepository.GetShoppingCartByPatientIdAsync(patientId);
 
             // 创建LineItem
-            var medicine = _resourceRepository
-                .GetMedicine(addShoppingCartItemDto.Id);
+            var medicine = await _resourceRepository
+                .GetMedicineAsync(addShoppingCartItemDto.Id);
             if (medicine == null)
             {
                 return NotFound("药品不存在");
@@ -69,7 +69,7 @@ namespace Hospital.Controllers
 
             // 添加lineItem，并保存数据库
             _resourceRepository.AddShoppingCartItem(lineItem);
-            _userRepository.Save();
+            await _userRepository.SaveAsync();
 
             // 输出购物车新数据
             return Ok(_mapper.Map<ShoppingCartDto>(shoppingCart));
@@ -89,9 +89,9 @@ namespace Hospital.Controllers
             // 比如对某个病人进行操作时，不能删除另一个病人购物车中的item
 
             // 根据patientId获取ShoppingCart
-            var shoppingCart_1 = await _userRepository.GetShoppingCartByPatientId(patientId);
+            var shoppingCart_1 = await _userRepository.GetShoppingCartByPatientIdAsync(patientId);
             // 根据itemId获取整个LineItem
-            var lineItem = _resourceRepository.GetShoppingCartItemByItemId(lineItemId);
+            var lineItem = await _resourceRepository.GetShoppingCartItemByItemIdAsync(lineItemId);
             if (lineItem == null)
             {
                 return NotFound("当前处方中无该项");
@@ -103,7 +103,7 @@ namespace Hospital.Controllers
             }
 
             _resourceRepository.DeleteShoppingCartItem(lineItem);
-            _userRepository.Save();
+            await _userRepository.SaveAsync();
 
             return NoContent();
         }
@@ -122,7 +122,7 @@ namespace Hospital.Controllers
 
             var items = await _resourceRepository.GetShoppingCartItemsByItemIdListAsync(lineItemIds);
             _resourceRepository.DeleteShoppingCartItems(items);
-            _userRepository.Save();
+            await _userRepository.SaveAsync();
 
             return NoContent();
         }

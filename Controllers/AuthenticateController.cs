@@ -76,17 +76,17 @@ namespace Hospital.Controllers
 
         [AllowAnonymous]
         [HttpPost("login_patient")]
-        public IActionResult LoginForPatient([FromBody] LoginForPatientDto loginForPatientDto)
+        public async Task<IActionResult> LoginForPatient([FromBody] LoginForPatientDto loginForPatientDto)
         {
             // 1. 验证用户名和密码，方便起见密码明文验证
             // 用户是否存在
-            if (!_userRepository.PatientExistsByPatientId(loginForPatientDto.Id))
+            if (!(await _userRepository.PatientExistsByPatientIdAsync(loginForPatientDto.Id)))
             {
                 return BadRequest("用户名或密码错误");
             }
 
             // 取得病人model
-            var patient = _userRepository.GetPatientByPatientId(loginForPatientDto.Id);
+            var patient = await _userRepository.GetPatientByPatientIdAsync(loginForPatientDto.Id);
             if (patient.Password != loginForPatientDto.Password)
             {
                 return BadRequest("用户名或密码错误");
@@ -97,9 +97,9 @@ namespace Hospital.Controllers
 
         [AllowAnonymous]
         [HttpPost("login_staff")]
-        public IActionResult LoginForStaff([FromBody] LoginForStaffDto loginForStaffDto)
+        public async Task<IActionResult> LoginForStaff([FromBody] LoginForStaffDto loginForStaffDto)
         {
-            var staff = _userRepository.GetStaffByStaffId(loginForStaffDto.Id);
+            var staff = await _userRepository.GetStaffByStaffIdAsync(loginForStaffDto.Id);
             if (staff == null || staff.Password != loginForStaffDto.Password)
             {
                 return BadRequest("用户名或密码错误");
@@ -111,10 +111,10 @@ namespace Hospital.Controllers
 
         [AllowAnonymous]
         [HttpPost("register_patient")]
-        public IActionResult RegisterForPatient([FromBody] RegisterForPatientDto registerForPatientDto)
+        public async Task<IActionResult> RegisterForPatientAsync([FromBody] RegisterForPatientDto registerForPatientDto)
         {
             // 检查病人存不存在与数据库，如果存在，返回错误
-            if(_userRepository.PatientExistsByGlobalId(registerForPatientDto.GlobalId))
+            if(await _userRepository.PatientExistsByGlobalIdAsync(registerForPatientDto.GlobalId))
             {
                 return BadRequest("病人已存在，请勿重复注册");
             }
@@ -122,7 +122,7 @@ namespace Hospital.Controllers
             var patient = _mapper.Map<Patient>(registerForPatientDto);
             // 将model加入数据库，病人Id自动生成
             _userRepository.AddPatient(patient);
-            _userRepository.Save();
+            await _userRepository.SaveAsync();
 
             // 初始化病人的购物车
             var shoppingCart = new ShoppingCart()
@@ -132,7 +132,7 @@ namespace Hospital.Controllers
             };
             // 调用数据仓库，将购物车添加进去
             _userRepository.CreateShoppingCart(shoppingCart);
-            _userRepository.Save();
+            await _userRepository.SaveAsync();
 
             // 将创建的Id返回
             return Ok(patient.Id);
@@ -144,10 +144,10 @@ namespace Hospital.Controllers
         // 这里为了调试起见，将访问权限设置为了所有人
         [AllowAnonymous]
         [HttpPost("register_staff")]
-        public IActionResult RegisterForStaff([FromBody] RegisterForStaffDto registerForStaffDto)
+        public async Task<IActionResult> RegisterForStaff([FromBody] RegisterForStaffDto registerForStaffDto)
         {
             // 用户名和身份证号都不能相同
-            if (_userRepository.StaffExistsByGlobalId(registerForStaffDto.GlobalId))
+            if (await _userRepository.StaffExistsByGlobalIdAsync(registerForStaffDto.GlobalId))
             {
                 return BadRequest("身份证号已存在");
             }
@@ -157,7 +157,7 @@ namespace Hospital.Controllers
             }*/
             var staff = _mapper.Map<Staff>(registerForStaffDto);
             _userRepository.AddStaff(staff);
-            _userRepository.Save();
+            await _userRepository.SaveAsync();
 
             return Ok(staff.Id);
         }
