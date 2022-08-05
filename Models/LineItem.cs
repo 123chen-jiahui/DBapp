@@ -22,11 +22,16 @@ namespace Hospital.Models
         [ForeignKey("MedicineId")]
         public Medicine Medicine { get; set; }
         // 2.
-        [Required]
+        // [Required]
         [Column("SHOPPINGCART_ID")]
         public Guid? ShoppingCartId { get; set; } // 可以为空，因为LineItem会在ShoppingCart和Order之间转移
+        [ForeignKey("ShoppingCartId")]
+        public ShoppingCart ShoppingCart { get; set; }
         // 3.
-        // public Guid? OrderId { get; set; } // 可以为空，因为LineItem会在ShoppingCart和Order之间转移
+        [Column("ORDER_ID")]
+        public Guid? OrderId { get; set; } // 可以为空，因为LineItem会在ShoppingCart和Order之间转移
+        [ForeignKey("OrderId")]
+        public Order Order { get; set; }
         [Required]
         [Column("PRICE", TypeName = "decimal(18, 2)")]
         public decimal Price { get; set; }

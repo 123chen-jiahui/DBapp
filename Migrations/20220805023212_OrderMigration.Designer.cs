@@ -3,15 +3,17 @@ using System;
 using Hospital.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Oracle.EntityFrameworkCore.Metadata;
 
 namespace Hospital.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220805023212_OrderMigration")]
+    partial class OrderMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -144,14 +146,14 @@ namespace Hospital.Migrations
                         .HasColumnName("MEDICINE_ID");
 
                     b.Property<Guid?>("OrderId")
-                        .HasColumnType("RAW(16)")
-                        .HasColumnName("ORDER_ID");
+                        .HasColumnType("RAW(16)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)")
                         .HasColumnName("PRICE");
 
                     b.Property<Guid?>("ShoppingCartId")
+                        .IsRequired()
                         .HasColumnType("RAW(16)")
                         .HasColumnName("SHOPPINGCART_ID");
 
@@ -579,19 +581,17 @@ namespace Hospital.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Hospital.Models.Order", "Order")
+                    b.HasOne("Hospital.Models.Order", null)
                         .WithMany("OrderItems")
                         .HasForeignKey("OrderId");
 
-                    b.HasOne("Hospital.Models.ShoppingCart", "ShoppingCart")
+                    b.HasOne("Hospital.Models.ShoppingCart", null)
                         .WithMany("ShoppingCartItems")
-                        .HasForeignKey("ShoppingCartId");
+                        .HasForeignKey("ShoppingCartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Medicine");
-
-                    b.Navigation("Order");
-
-                    b.Navigation("ShoppingCart");
                 });
 
             modelBuilder.Entity("Hospital.Models.MedicalEquipment", b =>

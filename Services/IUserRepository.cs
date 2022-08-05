@@ -20,6 +20,7 @@ namespace Hospital.Services
         Task<IEnumerable<Staff>> GetStaffsAsync(int departmentId);
         Task<ShoppingCart> GetShoppingCartByPatientIdAsync(int patientId);
         void CreateShoppingCart(ShoppingCart shoppingCart);
+        Task AddOrderAsync(Order order);
         Task<bool> SaveAsync();
     }
 }

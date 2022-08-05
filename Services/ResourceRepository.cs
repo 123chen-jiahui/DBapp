@@ -48,5 +48,10 @@ namespace Hospital.Services
         {
             _context.LineItems.RemoveRange(lineItems);
         }
+
+        public async Task<ICollection<LineItem>> GetShoppingCartItemsByShoppingCartIdAsync(Guid shoppingCartId)
+        {
+            return await _context.LineItems.Where(li => li.ShoppingCartId == shoppingCartId).ToListAsync();
+        }
     }
 }

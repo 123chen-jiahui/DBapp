@@ -85,5 +85,10 @@ namespace Hospital.Services
         {
             _context.ShoppingCarts.Add(shoppingCart);
         }
+
+        public async Task AddOrderAsync(Order order)
+        {
+            await _context.Orders.AddAsync(order);
+        }
     }
 }

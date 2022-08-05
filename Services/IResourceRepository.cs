@@ -14,5 +14,6 @@ namespace Hospital.Services
         void DeleteShoppingCartItem(LineItem lineItem);
         Task<IEnumerable<LineItem>> GetShoppingCartItemsByItemIdListAsync(IEnumerable<int> lineItemIds);
         void DeleteShoppingCartItems(IEnumerable<LineItem> lineItems);
+        Task<ICollection<LineItem>> GetShoppingCartItemsByShoppingCartIdAsync(Guid shoppingCartId);
     }
 }

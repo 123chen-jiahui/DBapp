@@ -126,5 +126,42 @@ namespace Hospital.Controllers
 
             return NoContent();
         }
+
+        [HttpPost("checkout/{patientId}")]
+        [Authorize(Roles = "Doctor")]
+        public async Task<IActionResult> Checkout([FromRoute] int patientId)
+        {
+            // 获取购物车
+            var shoppingCart = await _userRepository.GetShoppingCartByPatientIdAsync(patientId);
+            // 创建订单
+            var order = new Order()
+            {
+                Id = Guid.NewGuid(),
+                PatientId = patientId,
+                State = OrderStateEnum.Pending,
+                OrderItems = shoppingCart.ShoppingCartItems,
+                CreateDateUTC = DateTime.UtcNow,
+                TransactionMetadata = "what"
+            };
+
+            /*var items = await _resourceRepository.GetShoppingCartItemsByShoppingCartIdAsync(shoppingCart.Id);
+
+            shoppingCart.ShoppingCartItems = null;
+            await _userRepository.SaveAsync();
+
+            order.OrderItems = items;
+            await _userRepository.AddOrderAsync(order);
+            await _userRepository.SaveAsync();*/
+
+            // shoppingCart.ShoppingCartItems.Clear();
+            // 清空购物车
+            shoppingCart.ShoppingCartItems = null;
+            // 保存数据
+            await _userRepository.AddOrderAsync(order);
+
+            await _userRepository.SaveAsync();
+
+            return Ok(_mapper.Map<OrderDto>(order));
+        }
     }
 }
