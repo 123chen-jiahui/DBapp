@@ -90,5 +90,10 @@ namespace Hospital.Services
         {
             await _context.Orders.AddAsync(order);
         }
+
+        public async Task<IEnumerable<Order>> GetOrdersByPatientIdAsync(int patientId)
+        {
+            return await _context.Orders.Where(o => o.PatientId == patientId).ToListAsync();
+        }
     }
 }

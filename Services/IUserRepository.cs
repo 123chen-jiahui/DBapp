@@ -22,5 +22,6 @@ namespace Hospital.Services
         void CreateShoppingCart(ShoppingCart shoppingCart);
         Task AddOrderAsync(Order order);
         Task<bool> SaveAsync();
+        Task<IEnumerable<Order>> GetOrdersByPatientIdAsync(int patientId);
     }
 }

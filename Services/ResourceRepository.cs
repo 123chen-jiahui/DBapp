@@ -53,5 +53,13 @@ namespace Hospital.Services
         {
             return await _context.LineItems.Where(li => li.ShoppingCartId == shoppingCartId).ToListAsync();
         }
+
+        public async Task<Order> GetOrderByOrderIdAsync(Guid orderId)
+        {
+            return await _context.Orders
+                .Include(o => o.OrderItems).ThenInclude(oi => oi.Medicine)
+                .Where(o => o.Id == orderId)
+                .FirstOrDefaultAsync();
+        }
     }
 }

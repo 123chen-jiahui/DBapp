@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Serialization;
@@ -68,7 +69,7 @@ namespace Hospital
                 option.UseOracle(Configuration["DbContext:ConnectionString"]);
                 // option.UseOracle("User Id=SYSTEM;Password=Cjh010315;Data Source=localhost/orcl;");
             });
-
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             // 注入automapper服务依赖
             // 扫描profile文件
             // automapper会自动扫描Profiles文件夹下的所有文件，在构建函数中，完成映射关系的配置
