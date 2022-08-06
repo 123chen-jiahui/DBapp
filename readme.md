@@ -1,6 +1,16 @@
 ## 望周知
 
-目前的进展是能够进行病人和员工的登录和注册以及初步的挂号。
+后端目前的进展：
+
+1. 登录和注册
+
+2. 初步的挂号（挂号时，病人会选择科室，这时候要显示科室里面所有医生的信息，供病人选择，实现了该接口）
+
+3. 门诊医生给病人开具处方（从“购物车”中添加删除药品）
+
+4. 生成订单
+
+5. 查看历史订单
 
 假想病人注册过程：输入一堆信息（身份证号等）以及密码，注册成功后返回一个病人Id作为账号，和密码配合使用可以登录。返回的病人Id按照顺序生成，是以1开头的七位数。这么做是考虑到，医院不是社交网站，不需要用户有花里胡哨的账号，最好做到格式统一，便于识别。由于它是按照顺序生成的，所以是整型。
 
@@ -11,8 +21,6 @@
 员工登录：使用Id和密码登录
 
 病人和员工的区别在于：1、病人的Id受限，员工不受限；2、病人注册由自己完成，员工注册由管理员完成
-
-（7.28更新）在挂号时，病人会选择科室，这时候要显示科室里面所有医生的信息，供病人选择，实现了该接口。此外，实现了初步的挂号接口，不进行任何数据检验。
 
 ## 后端同学须知
 
@@ -44,7 +52,9 @@ Newtonsoft.Json(13.0.1)
 
 Oracle.EntityFrameworkCore(5.21.1)
 
-我大致说明一下我写的这部分代码，希望大家能了解一下我想象中的结构。
+Stateless(5.1.1)
+
+我大致说明一下我写的这部分代码，希望大家能了解一下我想象中的结构。为获得良好的阅读体验，请切换到Back_End分支第二次commit完成时的代码查看（哈希号为`d33c50f`），因为当前后端进展已经超出这篇文章时很多了。
 
 ### Models文件夹
 
@@ -74,9 +84,13 @@ Oracle.EntityFrameworkCore(5.21.1)
 
 前端使用**vue+axios**，俺也不知道有哪些好的学习资源QAQ，所以请大家抓紧学呀，目前前端滞后于后端，需要加快速度。
 
-目前的API接口如下（持续更新中），`{{host}}`用服务器IP地址118.31.108.144替代。**注意，以下的这些API只是在我本地测试通过的，并没有部署到服务器上，所以是无法访问到的，大家可以先假定可以正常使用这些API进行开发，如果确实有需要，联系我把它部署到服务器上（这个操作挺繁琐的，~~其实是我太懒QAQ~~），另外，目前服务器能正常访问的API是我在qq群里提到的那两个（没错，在那以后我就再也没有更新过服务器上的docker容器QAQ）。**如果某接口不能用，或者出现Http状态码500，Internal Server Error，则是服务器的问题，出现这种情况请告知我修复服务器。 另外，如果前端需要某种功能的API，请与后端联系，添加之。
+目前的API接口如下（持续更新中），`{{host}}`用服务器IP地址118.31.108.144替代。如果某接口不能用，或者出现Http状态码500，Internal Server Error，则是服务器的问题，出现这种情况请告知我修复服务器。 另外，如果前端需要某种功能的API，请与后端联系，添加之。
+
+有的API需要授权（**Authorization**）才能访问，比如为病人开具处方、生成订单等API只有医生才能访问，而登录等API则是谁都可以访问，不进行权限验证。这是通过**jwt token**来实现的。jwt token相当于指明了某个用户拥有什么权限，拿我们的项目举例子，如果是病人登录，调用登录api，发送httppost请求，在请求体里面写病人的账号和密码，后端会返回一串加密过得字符，就是jwt token，这个东西表示了该用户是谁，有什么权限，哪些api可以调，哪些不能调（这些我都处理好了）。jwt token由浏览器/前端保存，当这个用户要访问一些api时，在http请求header中加入这串字符，后端可以知道这个用户是否有权限访问。怎么在http请求中加入jwt token请自行解决。
 
 1. (POST)http://{{host}}/auth/auth/login_patient
+   
+   Authorization: 无（不进行权限验证）
    
    作用：病人登录
    
@@ -93,8 +107,8 @@ Oracle.EntityFrameworkCore(5.21.1)
    
    ```json
    {
-       "Id": 1000000,
-       "Password": "cjh010315"
+       Id: 1000000,
+       Password: 'cjh010315'
    }
    ```
    
@@ -108,14 +122,16 @@ Oracle.EntityFrameworkCore(5.21.1)
    
    ```json
    {
-       "Id": 1000000,
-       "Password": "513010hjc"
+       Id: 1000000,
+       Password: '513010hjc'
    }
    ```
    
    返回：状态码400BadRequest，并返回字符串”用户名或密码错误“
 
 2. (POST)http://{{host}}/auth/auth/login_staff
+   
+   Authorization: 无
    
    作用：员工登录
    
@@ -132,8 +148,8 @@ Oracle.EntityFrameworkCore(5.21.1)
    
    ```json
    {
-       "Id": 2000000,
-       "Password": "123456"
+       Id: 2000000,
+       Password: '123456'
    }
    ```
    
@@ -146,6 +162,8 @@ Oracle.EntityFrameworkCore(5.21.1)
    错误的情况同1
 
 3. (POST)http://{{host}}/auth/auth/register_patient
+   
+   Authorization: 无
    
    作用：病人注册
    
@@ -167,19 +185,19 @@ Oracle.EntityFrameworkCore(5.21.1)
    
    ```json
    {
-       "GlobalId": "012345678901234567",
-       "Password": "123456",
-       "ConfirmPassword": "123456",
-       "Name": "张三",
-       "Gender": 2,
-       "Birthday": "1988-05-16",
-       "Phone": "01234567890"
+       GlobalId: '012345678901234567',
+       Password: '123456',
+       ConfirmPassword: '123456',
+       Name: '张三',
+       Gender: 1,
+       Birthday: '1988-05-16',
+       Phone: '01234567890'
    }
    ```
    
    返回示例：Http状态码200OK，并返回分配的Id（整型），如1000003
    
-   注：后端会对密码和确认密码进行检查，身份证号、手机号码等在前端进行合法性检查。同时，前端请确保Gender范围限定在1或2，这一点可以用选项实现。
+   注：后端会对密码和确认密码进行检查，身份证号、手机号码等在前端进行合法性检查。同时，前端请确保Gender范围限定在0或1，这一点可以用选项实现。
    
    错误Body示例①：重复注册
    
@@ -205,6 +223,8 @@ Oracle.EntityFrameworkCore(5.21.1)
 
 4. (POST)http://{{host}}/auth/auth/register_staff
    
+   Authorization: Admin（只有管理员才能访问）
+   
    作用：员工注册
    
    Body请求参数：（json格式）
@@ -214,8 +234,9 @@ Oracle.EntityFrameworkCore(5.21.1)
    | GlobalId        | [string] | 是   | 员工身份证号 |
    | Password        | [string] | 是   | 员工密码   |
    | ConfirmPassword | [string] | 是   | 确认密码   |
-   | Role            | [number] | 是   | 员工性别   |
+   | Role            | [number] | 是   | 员工职务   |
    | Name            | [string] | 是   | 员工姓名   |
+   | Gender          | [number] | 是   | 员工性别   |
    | Birthday        | [string] | 是   | 员工生日   |
    | Address         | [string] | 是   | 员工地址   |
    | Phone           | [string] | 是   | 员工电话号码 |
@@ -223,20 +244,22 @@ Oracle.EntityFrameworkCore(5.21.1)
    
    注：目前有10个科室，前端确保DepartmentId在1-10之间
    
+   注：Role目前有0,1,2三种，分别表示Admin、Doctor、MedicineToken
+   
    Body请求示例：
    
    ```json
    {
-       "GlobalId": "555555555555555555",
-       "Password": "12345678",
-       "ConfirmPassword": "12345678",
-       "Role": 2,
-       "Name": "李四",
-       "Gender": 2,
-       "Birthday": "2013-08-30",
-       "Address": "火星",
-       "Phone": "09876543210",
-       "Department": 5
+       GlobalId: '555555555555555555',
+       Password: '12345678',
+       ConfirmPassword: '12345678',
+       Role: 2,
+       Name: '李四',
+       Gender: 2,
+       Birthday: '2013-08-30',
+       Address: '火星',
+       Phone: '09876543210',
+       Department: 5
    ```
    
    返回：Http状态码200OK，并返回分配的Id（整型），如2000009
@@ -245,7 +268,9 @@ Oracle.EntityFrameworkCore(5.21.1)
    
    返回：Http状态码400BadRequest，并返回字符串“身份证号已存在”
 
-5. (GET)https://\{{host}}/staff/{DepartmentId}
+5. (GET)http://\{{host}}/staff/{DepartmentId}
+   
+   Authorization: Patient
    
    作用：根据科室Id来找到所有医生（挂号时有用）
    
@@ -267,3 +292,150 @@ Oracle.EntityFrameworkCore(5.21.1)
    ```
    
    如果科室Id超出限制，则返回Http状态码404NotFound
+
+6. (POST)http://{{host}}/patients/guahao（**该API还不完善**）
+   
+   Authorization: Patient
+   
+   作用：挂号
+   
+   Body请求参数：（json格式）
+   
+   | 参数名       | 类型       | 必填  | 说明           |
+   | --------- | -------- | --- | ------------ |
+   | Time      | [string] | 是   | 时间           |
+   | fee       | [double] | 是   | 挂号费用（最多两位小数） |
+   | PatientId | [number] | 是   | 病人Id         |
+   | StaffId   | [number] | 是   | 员工Id         |
+   
+   返回：Http状态码200Ok
+
+7. (GET)http://{{host}}/api/shoppingCart/{patientId}
+   
+   Authorization: Doctor
+   
+   作用：门诊医生看病时，获取病人当前的处方
+   
+   示例：http://{{host}}/api/shoppingCart/1000000
+   
+   返回：Http状态码200Ok，并返回病人当前处方，例如
+   
+   ```json
+   {
+       "id": "c131a5be-d954-49b7-94a5-ed7e49c78816",
+       "patientId": 1000000,
+       "shoppingCartItems": [
+           {
+               "id": 29,
+               "medicineId": "Z20040063",
+               "medicine": {
+                   "id": "Z20040063",
+                   "name": "连花清瘟胶囊",
+                   "price": 15.0,
+                   "inventory": 200,
+                   "indications": "用于治疗流行性感冒属热毒袭肺症"
+               },
+               "shoppingCartId": "c131a5be-d954-49b7-94a5-ed7e49c78816",
+               "price": 15.0
+           }
+       ]
+   }
+   ```
+
+8. (POST)http://{{host}}/api/shoppingCart/items/{patientId}
+   
+   Authorization: Doctor
+   
+   作用：门诊医生看病时，将某一种药品添加进处方
+   
+   Body请求参数：（json格式）
+   
+   | 参数名 | 类型       | 必填  | 说明   |
+   | --- | -------- | --- | ---- |
+   | Id  | [string] | 是   | 药品Id |
+   
+   示例：http://{{host}}/api/shoppingCart/items/1000000
+   
+   示例请求体：
+   
+   ```json
+   {
+       Id: 'Z20040063'
+   }
+   ```
+   
+   返回：Http状态码200Ok，并返回病人当前处方（同7）
+
+9. (DELETE)http://{{host}}/api/shoppingCart/items/{patientId}/{lineItemId}
+   
+   Authorization: Doctor
+   
+   作用：门诊医生看病时，将某一种药品从处方中删除
+   
+   示例：http://{{host}}/api/shoppingCart/items/1000000/29
+   
+   成功：Http状态码204NoContent
+   
+   失败①：Http状态码404Notfound，并返回字符串“当前处方中无该项”
+   
+   失败②：Http状态码400BadRequest，并返回字符串“不能删除其他病人的处方”
+
+10. (DELETE)http://{{host}}/api/shoppingCart/items/{patientId}/({lineItemId})
+    
+    Authorization: Doctor
+    
+    作用：门诊医生看病时，批量删除处方
+    
+    示例：http://{{host}}/api/shoppingCart/items/1000000/(18, 19, 20)
+    
+    返回：Http状态码204NoContent
+
+11. (POST)http://{{host}}/api/shoppingCart/checkout/{patientId}
+    
+    Authorization: Doctor
+    
+    作用：将处方生成订单
+    
+    示例：http://{{host}}/api/shoppingCart/checkout/1000000
+    
+    返回：Http状态码200Ok，并返回订单信息json，例如：
+    
+    ```json
+    {
+        "id": "ec1d7e24-f81d-4b1a-8236-47dedbcfae23",
+        "patientId": 1000000,
+        "orderItems": [
+            {
+                "id": 29,
+                "medicineId": "Z20040063",
+                "medicine": {
+                    "id": "Z20040063",
+                    "name": "连花清瘟胶囊",
+                    "price": 15.0,
+                    "inventory": 200,
+                    "indications": "用于治疗流行性感冒属热毒袭肺症"
+                },
+                "shoppingCartId": null,
+                "price": 15.0
+            },
+            {
+                "id": 30,
+                "medicineId": "Z50020615",
+                "medicine": {
+                    "id": "Z50020615",
+                    "name": "急支糖浆",
+                    "price": 25.0,
+                    "inventory": 350,
+                    "indications": "用于外感风热所致的咳嗽"
+                },
+                "shoppingCartId": null,
+                "price": 25.0
+            }
+        ],
+        "state": "Pending",
+        "createDateUTC": "2022-08-06T02:30:57.8596092Z",
+        "transactionMetadata": "what"
+    }
+    ```
+    
+    

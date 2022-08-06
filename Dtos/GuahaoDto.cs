@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace Hospital.Dtos
-{
+{   
     public class GuahaoDto
     {
         // Id应该是数据库自动生成
