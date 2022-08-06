@@ -61,11 +61,28 @@ namespace Hospital.Models
 
         StateMachine<OrderStateEnum, OrderStateTriggerEnum> _machine;
 
+
+        // 处理下单的函数
+        public void PaymentProcessing() // 要转化的状态
+        {
+            _machine.Fire(OrderStateTriggerEnum.PlaceOrder); // 触发动作
+        }
+
+        public void PaymentApprove()
+        {
+            _machine.Fire(OrderStateTriggerEnum.Approve);
+        }
+
+        public void PaymentReject()
+        {
+            _machine.Fire(OrderStateTriggerEnum.Reject);
+        }
+
         // 初始化状态机
         private void StateMachineInit()
         {
             _machine = new StateMachine<OrderStateEnum, OrderStateTriggerEnum>
-                (OrderStateEnum.Pending);
+                (() => State, s => State = s);
 
             _machine.Configure(OrderStateEnum.Pending)
                 .Permit(OrderStateTriggerEnum.PlaceOrder, OrderStateEnum.Processing)

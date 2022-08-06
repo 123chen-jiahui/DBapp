@@ -74,6 +74,8 @@ namespace Hospital
             // 扫描profile文件
             // automapper会自动扫描Profiles文件夹下的所有文件，在构建函数中，完成映射关系的配置
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            services.AddHttpClient();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
