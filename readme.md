@@ -437,3 +437,95 @@ Stateless(5.1.1)
         "transactionMetadata": "what"
     }
     ```
+
+12. (GET)http://{{host}}/api/orders
+    
+    Authorization: Patient
+    
+    作用：查看病人自己的历史订单
+    
+    示例：http://{{host}}/api/orders
+    
+    返回：Http状态码200Ok，并以json格式返回历史订单，例如
+    
+    ```json
+    [
+        {
+            "id": "7735761f-27ac-4eca-983d-bbd4db250f28",
+            "patientId": 1000000,
+            "orderItems": [],
+            "state": "Pending",
+            "createDateUTC": "2022-08-05T06:08:20.9315937",
+            "transactionMetadata": "what"
+        },
+        {
+            "id": "b4c1107e-a61d-4027-b52f-01b27af94d9d",
+            "patientId": 1000000,
+            "orderItems": [],
+            "state": "Pending",
+            "createDateUTC": "2022-08-05T06:11:52.1768019",
+            "transactionMetadata": "what"
+        }
+    ]
+    ```
+
+13. (GET)http://{{host}}/api/orders/{orderId}
+    
+    Authorization: Patient
+    
+    作用：病人查看某一订单详情
+    
+    示例：http://{{host}}/api/orders/dbc56c71-6d29-4fe0-9797-85243a91be40
+    
+    返回：Http状态码200Ok，并以json格式返回该订单详情，例如
+    
+    ```json
+    {
+        "id": "dbc56c71-6d29-4fe0-9797-85243a91be40",
+        "patientId": 1000000,
+        "orderItems": [
+            {
+                "id": 26,
+                "medicineId": "Z20040063",
+                "medicine": {
+                    "id": "Z20040063",
+                    "name": "连花清瘟胶囊",
+                    "price": 15.0,
+                    "inventory": 200,
+                    "indications": "用于治疗流行性感冒属热毒袭肺症"
+                },
+                "shoppingCartId": null,
+                "price": 15.0
+            },
+            {
+                "id": 27,
+                "medicineId": "Z20040063",
+                "medicine": {
+                    "id": "Z20040063",
+                    "name": "连花清瘟胶囊",
+                    "price": 15.0,
+                    "inventory": 200,
+                    "indications": "用于治疗流行性感冒属热毒袭肺症"
+                },
+                "shoppingCartId": null,
+                "price": 15.0
+            },
+            {
+                "id": 28,
+                "medicineId": "Z20040063",
+                "medicine": {
+                    "id": "Z20040063",
+                    "name": "连花清瘟胶囊",
+                    "price": 15.0,
+                    "inventory": 200,
+                    "indications": "用于治疗流行性感冒属热毒袭肺症"
+                },
+                "shoppingCartId": null,
+                "price": 15.0
+            }
+        ],
+        "state": "Pending",
+        "createDateUTC": "2022-08-05T14:35:49.008801",
+        "transactionMetadata": "what"
+    }
+    ```
