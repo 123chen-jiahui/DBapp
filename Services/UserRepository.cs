@@ -103,9 +103,13 @@ namespace Hospital.Services
             await _context.Orders.AddAsync(order);
         }
 
-        public async Task<IEnumerable<Order>> GetOrdersByPatientIdAsync(int patientId)
+        public async Task<PaginationList<Order>> GetOrdersByPatientIdAsync(int patientId, int pageNumber, int pageSize)
         {
-            return await _context.Orders.Where(o => o.PatientId == patientId).ToListAsync();
+            IQueryable<Order> result = _context.Orders;
+            result = result.Where(o => o.PatientId == patientId);
+
+            return await PaginationList<Order>.CreateAsync(pageNumber, pageSize, result);
+            // return await _context.Orders.Where(o => o.PatientId == patientId).ToListAsync();
         }
     }
 }

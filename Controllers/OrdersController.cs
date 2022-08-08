@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Hospital.Dtos;
 using Hospital.Models;
+using Hospital.ResourceParameter;
 using Hospital.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -43,7 +44,9 @@ namespace Hospital.Controllers
         // 查看历史订单
         [HttpGet]
         [Authorize(Roles = "Patient")]
-        public async Task<IActionResult> GetOrders()
+        public async Task<IActionResult> GetOrders(
+            [FromQuery] PageResourceParameter parameter
+        )
         {
             // 1. 获得当前病人
             // 从http上下文中获得，需要注入http上下文关系对象服务
@@ -54,7 +57,7 @@ namespace Hospital.Controllers
             // Console.WriteLine("patientId is {0}", patientId);
 
             // 2. 使用用户Id来获取订单历史记录
-            var orders = await _userRepository.GetOrdersByPatientIdAsync(Convert.ToInt32(patientId));
+            var orders = await _userRepository.GetOrdersByPatientIdAsync(Convert.ToInt32(patientId), parameter.PageNumber, parameter.PageSize);
 
             return Ok(_mapper.Map<IEnumerable<OrderDto>>(orders));
         } 
