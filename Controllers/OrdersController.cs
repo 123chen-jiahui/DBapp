@@ -98,7 +98,7 @@ namespace Hospital.Controllers
                 null // 第二个参数，请求主体
                 );
 
-            Console.WriteLine("response is {0}", response.IsSuccessStatusCode);
+            // Console.WriteLine("response is {0}", response.IsSuccessStatusCode);
             // 4. 从第三方相应中提取支付信息、支付结果
             bool isApprove = false; // 保存支付结果
             string transactionMetadate = ""; // 以字符串形式保存支付信息

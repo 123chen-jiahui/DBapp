@@ -74,6 +74,11 @@ namespace Hospital.Database
             var medicineJsonData = File.ReadAllText(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"/Database/MedicineMockData.json");
             IList<Medicine> medicine = JsonConvert.DeserializeObject<IList<Medicine>>(medicineJsonData);
             modelBuilder.Entity<Medicine>().HasData(medicine);
+
+            // 添加员工数据
+            var staffJsonData = File.ReadAllText(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"/Database/StaffMockData.json");
+            IList<Staff> staff = JsonConvert.DeserializeObject<IList<Staff>>(staffJsonData);
+            modelBuilder.Entity<Staff>().HasData(staff);
             // modelBuilder.HasSequence("SEQ_PATIENT_ID", "C##TEST").IncrementsBy(1);
             base.OnModelCreating(modelBuilder);
         }
