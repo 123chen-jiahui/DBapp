@@ -59,12 +59,22 @@ namespace Hospital.Services
             return await _context.Staff.Where(s => s.Id == staffId).FirstOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<Staff>> GetStaffsAsync(int departmentId)
+        public async Task<IEnumerable<Staff>> GetStaffsAsync(int departmentId, int pageNumber, int pageSize)
         {
             /*IQueryable<Staff> result = _context.Staff;
             result.Where(s => s.DepartmentId == departmentId);
             return result.ToList();*/
-            return await _context.Staff.Where(s => s.DepartmentId == departmentId).ToListAsync();
+            IQueryable<Staff> result = _context.Staff;
+
+            // pagination
+            // skip
+            var skip = (pageNumber - 1) * pageSize;
+            result = result.Skip(skip);
+            // 以pageSize为标准显示一定量的数据
+            result = result.Take(pageSize);
+
+            return await result.ToListAsync();
+            // return await _context.Staff.Where(s => s.DepartmentId == departmentId).ToListAsync();
         }
 
         public void AddRegistration(Registration reg)

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Hospital.Dtos;
+using Hospital.ResourceParameter;
 using Hospital.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -25,10 +26,13 @@ namespace Hospital.Controllers
         }
 
         [HttpGet("{DepartmentId}")]
-        public async Task<IActionResult> GetStafffs([FromRoute] int departmentId) // 路由都是string
+        public async Task<IActionResult> GetStafffs(
+            [FromRoute] int departmentId,
+            [FromQuery] PageResourceParameter pageParameters 
+        ) // 路由都是string
         {
             // int Id = Convert.ToInt32(departmentId);
-            var staffsFromRepo = await _userRepository.GetStaffsAsync(departmentId);
+            var staffsFromRepo = await _userRepository.GetStaffsAsync(departmentId, pageParameters.PageNumber, pageParameters.PageSize);
             if (staffsFromRepo == null || staffsFromRepo.Count() <= 0)
             {
                 return NotFound("找不到任何医生");

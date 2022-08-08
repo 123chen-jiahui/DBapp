@@ -17,7 +17,7 @@ namespace Hospital.Services
         void AddRegistration(Registration reg);
         Task<Patient> GetPatientByPatientIdAsync(int patientId); // 根据病人Id获取病人model
         Task<Staff> GetStaffByStaffIdAsync(int staffId);
-        Task<IEnumerable<Staff>> GetStaffsAsync(int departmentId);
+        Task<IEnumerable<Staff>> GetStaffsAsync(int departmentId, int pageNumber, int pageSize);
         Task<ShoppingCart> GetShoppingCartByPatientIdAsync(int patientId);
         void CreateShoppingCart(ShoppingCart shoppingCart);
         Task AddOrderAsync(Order order);
