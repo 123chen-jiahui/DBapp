@@ -1,4 +1,5 @@
 ﻿using Hospital.Database;
+using Hospital.Helper;
 using Hospital.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -59,21 +60,22 @@ namespace Hospital.Services
             return await _context.Staff.Where(s => s.Id == staffId).FirstOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<Staff>> GetStaffsAsync(int departmentId, int pageNumber, int pageSize)
+        public async Task<PaginationList<Staff>> GetStaffsAsync(int departmentId, int pageNumber, int pageSize)
         {
             /*IQueryable<Staff> result = _context.Staff;
             result.Where(s => s.DepartmentId == departmentId);
             return result.ToList();*/
             IQueryable<Staff> result = _context.Staff;
 
-            // pagination
+            /*// pagination
             // skip
             var skip = (pageNumber - 1) * pageSize;
             result = result.Skip(skip);
             // 以pageSize为标准显示一定量的数据
-            result = result.Take(pageSize);
+            result = result.Take(pageSize); 
 
-            return await result.ToListAsync();
+            return await result.ToListAsync();*/
+            return await PaginationList<Staff>.CreateAsync(pageNumber, pageSize, result);
             // return await _context.Staff.Where(s => s.DepartmentId == departmentId).ToListAsync();
         }
 
