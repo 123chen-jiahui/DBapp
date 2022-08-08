@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace FakeXiecheng.API.Helper
 {
+    // 该类的作用是将route中的字符串参数列表转化为int列表
     public class ArrayModelBinder : IModelBinder
     {
         public Task BindModelAsync(ModelBindingContext bindingContext)
