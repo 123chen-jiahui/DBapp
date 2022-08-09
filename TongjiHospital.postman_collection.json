@@ -1,0 +1,143 @@
+{
+	"info": {
+		"_postman_id": "50be02ef-1ce8-408c-8130-bc2b5d897324",
+		"name": "TongjiHospital",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22258660"
+	},
+	"item": [
+		{
+			"name": "身份认证模块",
+			"item": [
+				{
+					"name": "病人登录",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Id\": 1000000,\r\n    \"Password\": \"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://118.31.108.144:8080/auth/login_patient",
+							"protocol": "http",
+							"host": [
+								"118",
+								"31",
+								"108",
+								"144"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"login_patient"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "病人注册",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"GlobalId\": \"000000000000000000\",\r\n    \"Password\": \"12345678\",\r\n    \"ConfirmPassword\": \"12345678\",\r\n    \"Name\": \"李四\",\r\n    \"Gender\": 0,\r\n    \"Birthday\": \"1966-06-07\",\r\n    \"Phone\": \"55555555555\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://118.31.108.144:8080/auth/register_patient",
+							"protocol": "http",
+							"host": [
+								"118",
+								"31",
+								"108",
+								"144"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"register_patient"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "员工登录",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Id\": 2000020,\r\n    \"Password\": \"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://118.31.108.144:8080/auth/login_staff",
+							"protocol": "http",
+							"host": [
+								"118",
+								"31",
+								"108",
+								"144"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"login_staff"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "员工注册",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"GlobalId\": \"111111122222333445\",\r\n    \"Password\": \"12345678\",\r\n    \"ConfirmPassword\": \"12345678\",\r\n    \"Role\": 1,\r\n    \"Name\": \"张作霖\",\r\n    \"Gender\": 1,\r\n    \"Birthday\": \"1955-01-24\",\r\n    \"Address\": \"东北\",\r\n    \"Phone\": \"22222222222\",\r\n    \"DepartmentId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://118.31.108.144:8080/auth/register_staff",
+							"protocol": "http",
+							"host": [
+								"118",
+								"31",
+								"108",
+								"144"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"register_staff"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
