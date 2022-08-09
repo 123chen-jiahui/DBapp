@@ -9,6 +9,7 @@ namespace Hospital.Services
     public interface IResourceRepository
     {
         Task<Medicine> GetMedicineAsync(string medicineId);
+        Task<IEnumerable<Medicine>> GetMedicinesAsync(string keyWord);
         void AddShoppingCartItem(LineItem lineItem);
         Task<LineItem> GetShoppingCartItemByItemIdAsync(int lineItemId);
         void DeleteShoppingCartItem(LineItem lineItem);

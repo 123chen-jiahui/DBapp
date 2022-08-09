@@ -88,7 +88,7 @@ Stateless(5.1.1)
 
 有的API需要授权（**Authorization**）才能访问，比如为病人开具处方、生成订单等API只有医生才能访问，而登录等API则是谁都可以访问，不进行权限验证。这是通过**jwt token**来实现的。jwt token相当于指明了某个用户拥有什么权限，拿我们的项目举例子，如果是病人登录，调用登录api，发送httppost请求，在请求体里面写病人的账号和密码，后端会返回一串加密过得字符，就是jwt token，这个东西表示了该用户是谁，有什么权限，哪些api可以调，哪些不能调（这些我都处理好了）。jwt token由浏览器/前端保存，当这个用户要访问一些api时，在http请求header中加入这串字符，后端可以知道这个用户是否有权限访问。怎么在http请求中加入jwt token请自行解决。
 
-1. (POST)http://{{host}}/auth/auth/login_patient
+1. (POST)http://{{host}}/auth/login_patient
    
    Authorization: 无（不进行权限验证）
    
@@ -129,7 +129,7 @@ Stateless(5.1.1)
    
    返回：状态码400BadRequest，并返回字符串”用户名或密码错误“
 
-2. (POST)http://{{host}}/auth/auth/login_staff
+2. (POST)http://{{host}}/auth/login_staff
    
    Authorization: 无
    
@@ -161,7 +161,7 @@ Stateless(5.1.1)
    
    错误的情况同1
 
-3. (POST)http://{{host}}/auth/auth/register_patient
+3. (POST)http://{{host}}/auth/register_patient
    
    Authorization: 无
    

@@ -22,6 +22,11 @@ namespace Hospital.Services
             return await _context.Medicine.Where(m => m.Id == medicineId).FirstOrDefaultAsync();
         }
 
+        public async Task<IEnumerable<Medicine>> GetMedicinesAsync(string keyWord)
+        {
+            return await _context.Medicine.Where(m => m.Name.Contains(keyWord)).ToListAsync();
+        }
+
         public void AddShoppingCartItem(LineItem lineItem)
         {
             _context.LineItems.Add(lineItem);
