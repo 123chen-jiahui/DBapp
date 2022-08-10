@@ -138,6 +138,221 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "购物车（处方）模块",
+			"item": [
+				{
+					"name": "获取病人当前的处方",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMDAwMDIwIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiRG9jdG9yIiwibmJmIjoxNjYwMTIyMDU2LCJleHAiOjE2NjAyMDg0NTYsImlzcyI6IlRvbmdqaUhvc3BpdGFsLmNvbSIsImF1ZCI6IlRvbmdqaUhvc3BpdGFsLmNvbSJ9.QhMorXMiNIqm0NlICknIIMFFzXed4uiG62biERCMBfs",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://118.31.108.144:8080/api/shoppingCart/1000000",
+							"protocol": "http",
+							"host": [
+								"118",
+								"31",
+								"108",
+								"144"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"shoppingCart",
+								"1000000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "将药品添加进处方",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMDAwMDIwIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiRG9jdG9yIiwibmJmIjoxNjYwMTIyMDU2LCJleHAiOjE2NjAyMDg0NTYsImlzcyI6IlRvbmdqaUhvc3BpdGFsLmNvbSIsImF1ZCI6IlRvbmdqaUhvc3BpdGFsLmNvbSJ9.QhMorXMiNIqm0NlICknIIMFFzXed4uiG62biERCMBfs",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Id\": \"Z20040063\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://118.31.108.144:8080/api/shoppingCart/items/1000000",
+							"protocol": "http",
+							"host": [
+								"118",
+								"31",
+								"108",
+								"144"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"shoppingCart",
+								"items",
+								"1000000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "将药品从处方中删除",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMDAwMDIwIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiRG9jdG9yIiwibmJmIjoxNjYwMTIyMDU2LCJleHAiOjE2NjAyMDg0NTYsImlzcyI6IlRvbmdqaUhvc3BpdGFsLmNvbSIsImF1ZCI6IlRvbmdqaUhvc3BpdGFsLmNvbSJ9.QhMorXMiNIqm0NlICknIIMFFzXed4uiG62biERCMBfs",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://118.31.108.144:8080/api/shoppingCart/items/1000000/29",
+							"protocol": "http",
+							"host": [
+								"118",
+								"31",
+								"108",
+								"144"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"shoppingCart",
+								"items",
+								"1000000",
+								"29"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "将药品从处方中批量删除",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMDAwMDIwIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiRG9jdG9yIiwibmJmIjoxNjYwMTIyMDU2LCJleHAiOjE2NjAyMDg0NTYsImlzcyI6IlRvbmdqaUhvc3BpdGFsLmNvbSIsImF1ZCI6IlRvbmdqaUhvc3BpdGFsLmNvbSJ9.QhMorXMiNIqm0NlICknIIMFFzXed4uiG62biERCMBfs",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://118.31.108.144:8080/api/shoppingCart/items/1000000/(18, 19, 20)",
+							"protocol": "http",
+							"host": [
+								"118",
+								"31",
+								"108",
+								"144"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"shoppingCart",
+								"items",
+								"1000000",
+								"(18, 19, 20)"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "将处方生成订单",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "挂号模块",
+			"item": []
+		},
+		{
+			"name": "订单模块",
+			"item": [
+				{
+					"name": "查看历史订单",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMDAwMDAwIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiUGF0aWVudCIsIm5iZiI6MTY2MDEyMjc0MCwiZXhwIjoxNjYwMjA5MTQwLCJpc3MiOiJUb25namlIb3NwaXRhbC5jb20iLCJhdWQiOiJUb25namlIb3NwaXRhbC5jb20ifQ.DxMF5TgUC4YA7kZkCD8_Tl6nMkUsW6nWZCxpDvF1pKQ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://118.31.108.144:8080/api/orders",
+							"protocol": "http",
+							"host": [
+								"118",
+								"31",
+								"108",
+								"144"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查看订单详情",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMDAwMDAwIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiUGF0aWVudCIsIm5iZiI6MTY2MDEyMjc0MCwiZXhwIjoxNjYwMjA5MTQwLCJpc3MiOiJUb25namlIb3NwaXRhbC5jb20iLCJhdWQiOiJUb25namlIb3NwaXRhbC5jb20ifQ.DxMF5TgUC4YA7kZkCD8_Tl6nMkUsW6nWZCxpDvF1pKQ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://118.31.108.144:8080/api/orders/dbc56c71-6d29-4fe0-9797-85243a91be40",
+							"protocol": "http",
+							"host": [
+								"118",
+								"31",
+								"108",
+								"144"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"orders",
+								"dbc56c71-6d29-4fe0-9797-85243a91be40"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
