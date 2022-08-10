@@ -26,11 +26,19 @@ namespace Hospital.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("{timeSlotId}", Name = "GetTimeSlot")]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> GetTimeSlot([FromRoute] int timeSlotId)
+        [HttpGet]
+        // 身份验证
+        public async Task<IActionResult> GetTimeSlots()
         {
-            var timeSlot = await _affairsRepository.GetTimeSlot(timeSlotId);
+            var timeSlots = await _affairsRepository.GetTimeSlotsAsync();
+            return Ok(_mapper.Map<IEnumerable<TimeSlotDto>>(timeSlots));
+        }
+
+        [HttpGet("{timeSlotId}", Name = "GetTimeSlot")]
+         // [Authorize(Roles = "Admin")] // 为方便起见，这里不加权限认证
+        public async Task<IActionResult> GetTimeSlotById([FromRoute] int timeSlotId)
+        {
+            var timeSlot = await _affairsRepository.GetTimeSlotAsync(timeSlotId);
             if (timeSlot == null)
             {
                 return NotFound("找不到id为{timeSlot}的Timeslot");
@@ -40,13 +48,19 @@ namespace Hospital.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+         // [Authorize(Roles = "Admin")] // 为调试方便起见，这里不加权限认证
         public async Task<IActionResult> CreateTimeSlot(
             [FromBody] TimeSlotForCreationDto timeSlotForCreationDto
         )
         {
             // Dto->Model
             var timeSlot = _mapper.Map<TimeSlot>(timeSlotForCreationDto);
+
+            // 不能重复加入time_slot
+            if (await _affairsRepository.TimeSlotExistsAsync(timeSlot))
+            {
+                return BadRequest("该Time_Slot已存在，请勿重复创建");
+            }
 
             _affairsRepository.AddTimeSlot(timeSlot);
             await _affairsRepository.SaveAsync();

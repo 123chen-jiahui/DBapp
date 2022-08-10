@@ -8,8 +8,10 @@ namespace Hospital.Services
 {
     public interface IAffairsRepository
     {
-        Task<TimeSlot> GetTimeSlot(int timeSlotId);
+        Task<TimeSlot> GetTimeSlotAsync(int timeSlotId);
+        Task<IEnumerable<TimeSlot>> GetTimeSlotsAsync();
         void AddTimeSlot(TimeSlot timeSlot);
+        Task<bool> TimeSlotExistsAsync(TimeSlot timeSlot);
 
         Task<bool> SaveAsync();
     }
