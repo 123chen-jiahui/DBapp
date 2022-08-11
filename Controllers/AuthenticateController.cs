@@ -14,6 +14,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
+// 该类用于登录注册
 namespace Hospital.Controllers
 {
     [Route("auth")]

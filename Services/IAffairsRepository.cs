@@ -12,7 +12,10 @@ namespace Hospital.Services
         Task<IEnumerable<TimeSlot>> GetTimeSlotsAsync();
         void AddTimeSlot(TimeSlot timeSlot);
         Task<bool> TimeSlotExistsAsync(TimeSlot timeSlot);
+        Task<bool> ScheduleExistsAsync(int staffId);
 
+        Task<IEnumerable<Staff_TimeSlot>> GetScheduleAsync(int staffId);
+        void AddSchedule(Staff_TimeSlot staff_TimeSlot);
         Task<bool> SaveAsync();
     }
 }

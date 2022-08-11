@@ -14,6 +14,9 @@ namespace Hospital.Profiles
         {
             CreateMap<TimeSlotForCreationDto, TimeSlot>();
             CreateMap<TimeSlot, TimeSlotDto>();
+
+            CreateMap<ScheduleDto, Staff_TimeSlot>();
+            CreateMap<Staff_TimeSlot, ScheduleDto>();
         }
     }
 }

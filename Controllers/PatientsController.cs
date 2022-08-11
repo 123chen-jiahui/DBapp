@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+// 有关病人的操作
 namespace Hospital.Controllers
 {
     [Route("patients")]

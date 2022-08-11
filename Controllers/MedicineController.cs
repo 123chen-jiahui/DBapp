@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+// 有关药品的信息
 namespace Hospital.Controllers
 {
     [Route("medicine")]
@@ -26,6 +27,7 @@ namespace Hospital.Controllers
             _mapper = mapper;
         }
 
+        // 医生根据关键词查找药品
         [HttpGet]
         [Authorize(Roles = "Doctor")]
         public async Task<IActionResult> GetMedicines(
