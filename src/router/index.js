@@ -6,11 +6,13 @@ import {
   layout,
   route,
 } from '@/util/routes'
+import Login from '@/views/Login'
+import Register from '@/views/Register'
 
 Vue.use(Router)
 
 const router = new Router({
-  mode: 'history',
+  mode: 'hash',
   base: process.env.BASE_URL,
   scrollBehavior: (to, from, savedPosition) => {
     if (to.hash) return { selector: to.hash }
@@ -19,9 +21,12 @@ const router = new Router({
     return { x: 0, y: 0 }
   },
   routes: [
+    {
+      path: '/',
+      redirect: '/login',
+    },
     layout('Default', [
       route('Dashboard'),
-
       // Pages
       route('UserProfile', null, 'components/profile'),
 
@@ -36,6 +41,16 @@ const router = new Router({
       // Maps
       route('Google Maps', null, 'maps/google'),
     ]),
+    {
+      name: 'Login',
+      component: Login,
+      path: '/login',
+    },
+    {
+      name: 'Register',
+      component: Register,
+      path: '/register',
+    },
   ],
 })
 

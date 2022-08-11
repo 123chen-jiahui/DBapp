@@ -6,11 +6,12 @@ const state = {
   drawer: null,
   drawerImage: true,
   mini: false,
+  jwt: '',
   items: [
     {
       title: 'Dashboard',
       icon: 'mdi-view-dashboard',
-      to: '/',
+      to: '/dashboard',
     },
     {
       title: 'User Profile',
@@ -42,6 +43,7 @@ const state = {
       icon: 'mdi-bell',
       to: '/components/notifications/',
     },
+
   ],
 }
 
