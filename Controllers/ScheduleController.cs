@@ -35,7 +35,7 @@ namespace Hospital.Controllers
             var schedule = await _affairsRepository.GetScheduleAsync(staffId);
             if (schedule == null || schedule.Count() == 0)
             {
-                return BadRequest("找不到该医生的排班信息");
+                return NotFound("找不到该医生的排班信息");
             }
 
             // var schedule_ordered = schedule.OrderBy(s => s.Day);
@@ -80,6 +80,29 @@ namespace Hospital.Controllers
                 new { staffId = staffId },
                 scheduleToReturn_Ordered
             );
+        }
+
+        // 更新员工排班信息
+        [HttpPut("{staffId}")]
+        public async Task<IActionResult> UpdateSchedule(
+            [FromRoute] int staffId,
+            [FromBody] ScheduleForUpdationDto scheduleForUpdationDto
+        )
+        {
+            int day = scheduleForUpdationDto.Day;
+            // 原来的数据
+            var scheduleOfOneDay = await _affairsRepository.GetScheduleOfOneDay(staffId, day);
+            if (scheduleOfOneDay == null)
+            {
+                return NotFound("所要更新的信息不存在");
+            }
+
+            // 映射
+            _mapper.Map(scheduleForUpdationDto, scheduleOfOneDay);
+            // 保存数据
+            await _affairsRepository.SaveAsync();
+
+            return NoContent();
         }
     }
 }

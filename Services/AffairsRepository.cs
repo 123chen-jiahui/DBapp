@@ -44,6 +44,11 @@ namespace Hospital.Services
         {
             return await _context.Staff_TimeSlots.Where(s_ts => s_ts.StaffId == staffId).ToListAsync();
         }
+
+        public async Task<Staff_TimeSlot> GetScheduleOfOneDay(int staffId, int day)
+        {
+            return await _context.Staff_TimeSlots.Where(s_ts => s_ts.StaffId == staffId && s_ts.Day == day).FirstOrDefaultAsync();
+        }
         public void AddSchedule(Staff_TimeSlot staff_TimeSlot)
         {
             _context.Staff_TimeSlots.Add(staff_TimeSlot);
