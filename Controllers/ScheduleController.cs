@@ -62,12 +62,21 @@ namespace Hospital.Controllers
             {
                 int day = scheduleForCreationDto.Day[i];
                 int timeSlotId = scheduleForCreationDto.TimeSlotId[i];
-                ScheduleDto scheduleDto = new ScheduleDto();
+                ScheduleOfOneDayForCreationDto scheduleOfOneDayForCreationDto = new ScheduleOfOneDayForCreationDto();
+                /*ScheduleDto scheduleDto = new ScheduleDto();
                 scheduleDto.StaffId = staffId;
                 scheduleDto.Day = day;
                 scheduleDto.TimeSlotId = timeSlotId;
-                scheduleToReturn.Add(scheduleDto);
-                _affairsRepository.AddSchedule(_mapper.Map<Staff_TimeSlot>(scheduleDto));
+                scheduleToReturn.Add(scheduleDto);*/
+                scheduleOfOneDayForCreationDto.StaffId = staffId;
+                scheduleOfOneDayForCreationDto.Day = day;
+                scheduleOfOneDayForCreationDto.TimeSlotId = timeSlotId;
+                // 根据timeSlotId找到StartTime和EndTime
+                var timeSlot = await _affairsRepository.GetTimeSlotAsync(timeSlotId);
+
+                scheduleOfOneDayForCreationDto.Capacity = 6 * (timeSlot.EndTime - timeSlot.StartTime);
+                scheduleToReturn.Add(_mapper.Map<ScheduleDto>(scheduleOfOneDayForCreationDto));
+                _affairsRepository.AddSchedule(_mapper.Map<Staff_TimeSlot>(scheduleOfOneDayForCreationDto));
             }
             await _affairsRepository.SaveAsync();
             /*for (int i = 0; i < 7; i ++)
@@ -96,6 +105,10 @@ namespace Hospital.Controllers
             {
                 return NotFound("所要更新的信息不存在");
             }
+
+            // 修改容量
+            var timeSlot = await _affairsRepository.GetTimeSlotAsync(scheduleForUpdationDto.TimeSlotId);
+            scheduleOfOneDay.Capacity = 6 * (timeSlot.EndTime - timeSlot.StartTime);
 
             // 映射
             _mapper.Map(scheduleForUpdationDto, scheduleOfOneDay);

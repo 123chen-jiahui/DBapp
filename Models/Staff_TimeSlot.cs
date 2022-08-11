@@ -23,5 +23,8 @@ namespace Hospital.Models
         public int TimeSlotId { get; set; }
         [ForeignKey("TimeSlotId")]
         public TimeSlot TimeSlot { get; set; }
+
+        [Column("CAPACITY")]
+        public int Capacity { get; set; } // 根据工作时间自动生成
     }
 }
