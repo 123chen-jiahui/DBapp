@@ -17,7 +17,7 @@ namespace Hospital.Models
         public Guid Id { get; set; }
         [Required]
         [Column("TIME")]
-        public DateTime Time { get; set; }
+        public DateTime Time { get; set; } // 计算得来
         [Required]
         [Column("FEE", TypeName = "decimal(18, 2)")]
         public decimal fee { get; set; }

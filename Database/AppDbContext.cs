@@ -34,6 +34,7 @@ namespace Hospital.Database
         public DbSet<Order> Orders { get; set; }
         public DbSet<TimeSlot> TimeSlots { get; set; }
         public DbSet<Staff_TimeSlot> Staff_TimeSlots { get; set; }
+        public DbSet<Staff_Room> Staff_Rooms { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -92,6 +93,11 @@ namespace Hospital.Database
             var staffJsonData = File.ReadAllText(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"/Database/StaffMockData.json");
             IList<Staff> staff = JsonConvert.DeserializeObject<IList<Staff>>(staffJsonData);
             modelBuilder.Entity<Staff>().HasData(staff);
+
+            // 添加房间数据
+            var roomJsonData = File.ReadAllText(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"/Database/RoomMockData.json");
+            IList<Room> room = JsonConvert.DeserializeObject<IList<Room>>(roomJsonData);
+            modelBuilder.Entity<Room>().HasData(room);
             // modelBuilder.HasSequence("SEQ_PATIENT_ID", "C##TEST").IncrementsBy(1);
             base.OnModelCreating(modelBuilder);
         }

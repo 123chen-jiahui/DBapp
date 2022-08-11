@@ -1,0 +1,32 @@
+[
+    {
+        "Id": "101",
+        "Building": "A楼",
+        "RoomType": 2
+    },
+    {
+        "Id": "102",
+        "Building": "A楼",
+        "RoomType": 2
+    },
+    {
+        "Id": "103",
+        "Building": "A楼",
+        "RoomType": 2
+    },
+    {
+        "Id": "201",
+        "Building": "A楼",
+        "RoomType": 2
+    },
+    {
+        "Id": "202",
+        "Building": "A楼",
+        "RoomType": 2
+    },
+    {
+        "Id": "203",
+        "Building": "A楼",
+        "RoomType": 2
+    }
+]

@@ -3,15 +3,17 @@ using System;
 using Hospital.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Oracle.EntityFrameworkCore.Metadata;
 
 namespace Hospital.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220811135408_RoomMockData")]
+    partial class RoomMockData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -790,22 +792,6 @@ namespace Hospital.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Hospital.Models.Staff_Room", b =>
-                {
-                    b.Property<int>("StaffId")
-                        .HasColumnType("NUMBER(10)")
-                        .HasColumnName("STAFF_ID");
-
-                    b.Property<string>("RoomId")
-                        .HasColumnType("NVARCHAR2(450)");
-
-                    b.HasKey("StaffId");
-
-                    b.HasIndex("RoomId");
-
-                    b.ToTable("STAFF_ROOM");
-                });
-
             modelBuilder.Entity("Hospital.Models.Staff_TimeSlot", b =>
                 {
                     b.Property<int>("StaffId")
@@ -998,23 +984,6 @@ namespace Hospital.Migrations
                         .HasForeignKey("TimeSlotId");
 
                     b.Navigation("Department");
-                });
-
-            modelBuilder.Entity("Hospital.Models.Staff_Room", b =>
-                {
-                    b.HasOne("Hospital.Models.Room", "Room")
-                        .WithMany()
-                        .HasForeignKey("RoomId");
-
-                    b.HasOne("Hospital.Models.Staff", "Staff")
-                        .WithMany()
-                        .HasForeignKey("StaffId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Room");
-
-                    b.Navigation("Staff");
                 });
 
             modelBuilder.Entity("Hospital.Models.Staff_TimeSlot", b =>
