@@ -33,9 +33,9 @@ namespace Hospital.Database
         public DbSet<LineItem> LineItems { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<TimeSlot> TimeSlots { get; set; }
-        public DbSet<Staff_TimeSlot> Staff_TimeSlots { get; set; }
-        public DbSet<Staff_Room> Staff_Rooms { get; set; }
-
+        // public DbSet<Staff_TimeSlot> Staff_TimeSlots { get; set; }
+        // public DbSet<Staff_Room> Staff_Rooms { get; set; }
+        public DbSet<Schedule> Schedules { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasSequence("SEQ_PATIENT_ID")
@@ -75,8 +75,10 @@ namespace Hospital.Database
                 .ValueGeneratedOnAdd()
                 .UseHiLo("SEQ_TIMESLOT_ID");
             });
-            modelBuilder.Entity<Staff_TimeSlot>()
+            modelBuilder.Entity<Schedule>()
                 .HasKey(st => new { st.StaffId, st.Day });
+            /*modelBuilder.Entity<Staff_TimeSlot>()
+                .HasKey(st => new { st.StaffId, st.Day });*/
             // 添加科室数据
             // 读取json数据
             var departmentJsonData = File.ReadAllText(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"/Database/DepartmentMockData.json"); // 字符串前加@表示这是一个C#的string，不过我们还要获得当前项目的文件夹地址，需要用到C#的反射机制

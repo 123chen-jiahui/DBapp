@@ -37,21 +37,21 @@ namespace Hospital.Services
         }
         public async Task<bool> ScheduleExistsAsync(int staffId)
         {
-            return await _context.Staff_TimeSlots.AnyAsync(s_ts => s_ts.StaffId == staffId);
+            return await _context.Schedules.AnyAsync(s_ts => s_ts.StaffId == staffId);
         }
 
-        public async Task<IEnumerable<Staff_TimeSlot>> GetScheduleAsync(int staffId)
+        public async Task<IEnumerable<Schedule>> GetScheduleAsync(int staffId)
         {
-            return await _context.Staff_TimeSlots.Where(s_ts => s_ts.StaffId == staffId).ToListAsync();
+            return await _context.Schedules.Where(s_ts => s_ts.StaffId == staffId).ToListAsync();
         }
 
-        public async Task<Staff_TimeSlot> GetScheduleOfOneDay(int staffId, int day)
+        public async Task<Schedule> GetScheduleOfOneDay(int staffId, int day)
         {
-            return await _context.Staff_TimeSlots.Where(s_ts => s_ts.StaffId == staffId && s_ts.Day == day).FirstOrDefaultAsync();
+            return await _context.Schedules.Where(s_ts => s_ts.StaffId == staffId && s_ts.Day == day).FirstOrDefaultAsync();
         }
-        public void AddSchedule(Staff_TimeSlot staff_TimeSlot)
+        public void AddSchedule(Schedule staff_TimeSlot)
         {
-            _context.Staff_TimeSlots.Add(staff_TimeSlot);
+            _context.Schedules.Add(staff_TimeSlot);
         }
 
         public async Task<bool> SaveAsync()

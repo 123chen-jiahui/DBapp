@@ -14,9 +14,9 @@ namespace Hospital.Services
         Task<bool> TimeSlotExistsAsync(TimeSlot timeSlot);
         Task<bool> ScheduleExistsAsync(int staffId);
 
-        Task<IEnumerable<Staff_TimeSlot>> GetScheduleAsync(int staffId);
-        Task<Staff_TimeSlot> GetScheduleOfOneDay(int staffId, int day);
-        void AddSchedule(Staff_TimeSlot staff_TimeSlot);
+        Task<IEnumerable<Schedule>> GetScheduleAsync(int staffId);
+        Task<Schedule> GetScheduleOfOneDay(int staffId, int day);
+        void AddSchedule(Schedule staff_TimeSlot);
         Task<bool> SaveAsync();
     }
 }

@@ -3,15 +3,17 @@ using System;
 using Hospital.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Oracle.EntityFrameworkCore.Metadata;
 
 namespace Hospital.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220812082604_RemoveStaff_Room")]
+    partial class RemoveStaff_Room
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -496,37 +498,6 @@ namespace Hospital.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Hospital.Models.Schedule", b =>
-                {
-                    b.Property<int>("StaffId")
-                        .HasColumnType("NUMBER(10)")
-                        .HasColumnName("STAFF_ID");
-
-                    b.Property<int>("Day")
-                        .HasColumnType("NUMBER(10)")
-                        .HasColumnName("DAY");
-
-                    b.Property<int>("Capacity")
-                        .HasColumnType("NUMBER(10)")
-                        .HasColumnName("CAPACITY");
-
-                    b.Property<string>("RoomId")
-                        .HasColumnType("NVARCHAR2(450)")
-                        .HasColumnName("ROOM_ID");
-
-                    b.Property<int>("TimeSlotId")
-                        .HasColumnType("NUMBER(10)")
-                        .HasColumnName("TIMESLOT_ID");
-
-                    b.HasKey("StaffId", "Day");
-
-                    b.HasIndex("RoomId");
-
-                    b.HasIndex("TimeSlotId");
-
-                    b.ToTable("SCHEDULES");
-                });
-
             modelBuilder.Entity("Hospital.Models.ShoppingCart", b =>
                 {
                     b.Property<Guid>("Id")
@@ -821,6 +792,31 @@ namespace Hospital.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Hospital.Models.Staff_TimeSlot", b =>
+                {
+                    b.Property<int>("StaffId")
+                        .HasColumnType("NUMBER(10)")
+                        .HasColumnName("STAFF_ID");
+
+                    b.Property<int>("Day")
+                        .HasColumnType("NUMBER(10)")
+                        .HasColumnName("DAY");
+
+                    b.Property<int>("Capacity")
+                        .HasColumnType("NUMBER(10)")
+                        .HasColumnName("CAPACITY");
+
+                    b.Property<int>("TimeSlotId")
+                        .HasColumnType("NUMBER(10)")
+                        .HasColumnName("TIMESLOT_ID");
+
+                    b.HasKey("StaffId", "Day");
+
+                    b.HasIndex("TimeSlotId");
+
+                    b.ToTable("STAFF_TIMESLOT");
+                });
+
             modelBuilder.Entity("Hospital.Models.TimeSlot", b =>
                 {
                     b.Property<int>("Id")
@@ -964,31 +960,6 @@ namespace Hospital.Migrations
                     b.Navigation("Staff");
                 });
 
-            modelBuilder.Entity("Hospital.Models.Schedule", b =>
-                {
-                    b.HasOne("Hospital.Models.Room", "Room")
-                        .WithMany()
-                        .HasForeignKey("RoomId");
-
-                    b.HasOne("Hospital.Models.Staff", "Staff")
-                        .WithMany()
-                        .HasForeignKey("StaffId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Hospital.Models.TimeSlot", "TimeSlot")
-                        .WithMany()
-                        .HasForeignKey("TimeSlotId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Room");
-
-                    b.Navigation("Staff");
-
-                    b.Navigation("TimeSlot");
-                });
-
             modelBuilder.Entity("Hospital.Models.ShoppingCart", b =>
                 {
                     b.HasOne("Hospital.Models.Patient", "Patient")
@@ -1013,6 +984,25 @@ namespace Hospital.Migrations
                         .HasForeignKey("TimeSlotId");
 
                     b.Navigation("Department");
+                });
+
+            modelBuilder.Entity("Hospital.Models.Staff_TimeSlot", b =>
+                {
+                    b.HasOne("Hospital.Models.Staff", "Staff")
+                        .WithMany()
+                        .HasForeignKey("StaffId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Hospital.Models.TimeSlot", "TimeSlot")
+                        .WithMany()
+                        .HasForeignKey("TimeSlotId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Staff");
+
+                    b.Navigation("TimeSlot");
                 });
 
             modelBuilder.Entity("Hospital.Models.Ward", b =>

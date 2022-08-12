@@ -46,7 +46,7 @@ namespace Hospital.Controllers
         [HttpPost]
         // 身份验证
         public async Task<IActionResult> AddSchedule(
-            [FromBody] ScheduleForCreationDto scheduleForCreationDto    
+            [FromBody] ScheduleForCreationDto scheduleForCreationDto
         )
         {
             // 查找该医生是否已经创建schedule，如已创建，应报错
@@ -58,28 +58,32 @@ namespace Hospital.Controllers
 
             // 将7天的排班信息加入到数据库中的Staff_TimeSlot中
             var scheduleToReturn = new List<ScheduleDto>();
-            for (int i = 0; i < 7; i ++)
+            for (int i = 0; i < 7; i++)
             {
                 int day = scheduleForCreationDto.Day[i];
                 int timeSlotId = scheduleForCreationDto.TimeSlotId[i];
+                string roomId = scheduleForCreationDto.RoomId[i];
                 ScheduleOfOneDayForCreationDto scheduleOfOneDayForCreationDto = new ScheduleOfOneDayForCreationDto();
                 /*ScheduleDto scheduleDto = new ScheduleDto();
                 scheduleDto.StaffId = staffId;
                 scheduleDto.Day = day;
                 scheduleDto.TimeSlotId = timeSlotId;
+                scheduleDto.RoomId = roomId;
                 scheduleToReturn.Add(scheduleDto);*/
+
                 scheduleOfOneDayForCreationDto.StaffId = staffId;
                 scheduleOfOneDayForCreationDto.Day = day;
                 scheduleOfOneDayForCreationDto.TimeSlotId = timeSlotId;
+                scheduleOfOneDayForCreationDto.RoomId = roomId;
                 // 根据timeSlotId找到StartTime和EndTime
                 var timeSlot = await _affairsRepository.GetTimeSlotAsync(timeSlotId);
 
                 scheduleOfOneDayForCreationDto.Capacity = 6 * (timeSlot.EndTime - timeSlot.StartTime);
                 scheduleToReturn.Add(_mapper.Map<ScheduleDto>(scheduleOfOneDayForCreationDto));
-                _affairsRepository.AddSchedule(_mapper.Map<Staff_TimeSlot>(scheduleOfOneDayForCreationDto));
+                _affairsRepository.AddSchedule(_mapper.Map<Schedule>(scheduleOfOneDayForCreationDto));
             }
             await _affairsRepository.SaveAsync();
-            /*for (int i = 0; i < 7; i ++)
+            /*for (int i = 0; i < 7; i++)
             {
                 Console.WriteLine("{0} {1}", scheduleForCreationDto.Day[i], scheduleForCreationDto.TimeSlotId[i]);
             }*/

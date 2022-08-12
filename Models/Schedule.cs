@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Hospital.Models
 {
-    [Table("STAFF_TIMESLOT")]
-    public class Staff_TimeSlot
+    [Table("SCHEDULES")]
+    public class Schedule
     {
         // [Key]
         [Column("STAFF_ID")]
@@ -23,6 +23,11 @@ namespace Hospital.Models
         public int TimeSlotId { get; set; }
         [ForeignKey("TimeSlotId")]
         public TimeSlot TimeSlot { get; set; }
+
+        [Column("ROOM_ID")]
+        public string RoomId { get; set; }
+        [ForeignKey("RoomId")]
+        public Room Room { get; set; }
 
         [Column("CAPACITY")]
         public int Capacity { get; set; } // 根据工作时间自动生成

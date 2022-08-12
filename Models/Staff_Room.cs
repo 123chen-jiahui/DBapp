@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Hospital.Models
 {
+    // 该类废弃
     [Table("STAFF_ROOM")]
     public class Staff_Room
     {
