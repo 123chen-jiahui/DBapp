@@ -5,6 +5,8 @@ using Hospital.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,6 +37,39 @@ namespace Hospital.Controllers
             _httpContextAccessor = httpContextAccessor;
         }
 
+        public int WeekOfDayToInt(DayOfWeek day)
+        {
+            if (day == DayOfWeek.Sunday)
+            {
+                return 0;
+            }
+            else if (day == DayOfWeek.Monday)
+            {
+                return 1;
+            }
+            else if (day == DayOfWeek.Tuesday)
+            {
+                return 2;
+            }
+            else if (day == DayOfWeek.Wednesday)
+            {
+                return 3;
+            }
+            else if (day == DayOfWeek.Thursday)
+            {
+                return 4;
+            }
+            else if (day == DayOfWeek.Friday)
+            {
+                return 5;
+            }
+            else
+            {
+                return 6;
+            }
+
+        }
+
         [HttpPost("checkout")]
         [Authorize]
         public async Task<IActionResult> Checkout([FromBody] RegistrationForCreationDto registrationForCreationDto)
@@ -56,6 +91,9 @@ namespace Hospital.Controllers
             var timeSlot = await _affairsRepository.GetTimeSlotAsync(timeSlotId);
             int total = 6 * (timeSlot.EndTime - timeSlot.StartTime);
 
+            // 预约日期
+            DateTime time = DateTime.Now.AddDays((day + 7 - WeekOfDayToInt(DateTime.Now.DayOfWeek)) % 7);
+
             var registration = new Registration()
             {
                 Id = Guid.NewGuid(),
@@ -65,25 +103,85 @@ namespace Hospital.Controllers
                 Day = day,
                 Order = total - remaining + 1,
                 Time = new DateTime(
-                    DateTime.Today.Year,
-                    DateTime.Today.Month,
-                    DateTime.Today.Day,
+                    time.Year,
+                    time.Month,
+                    time.Day,
+                    // DateTime.Now.Year,
+                    // DateTime.Today.Year,
+                    // DateTime.Now.Month,
+                    // DateTime.Today.Month,
+                    // DateTime.Now.Day,
+                    // DateTime.Today.Day,
                     timeSlot.StartTime + (total - remaining) * 10 / 60,
                     (total - remaining) * 10 % 60,
                     0
                 ),
                 RoomId = schedule.RoomId,
                 State = OrderStateEnum.Pending,
-                CreateDateUTC = DateTime.UtcNow,
+                CreateDateLocal = DateTime.Now,
                 TransactionMetadata = "null"
             };
-
+            
             // 使容量-1
             schedule.Capacity -= 1;
 
             // 保存数据
             await _affairsRepository.AddRegistrationAsync(registration);
             await _affairsRepository.SaveAsync();
+            return Ok(_mapper.Map<RegistrationDto>(registration));
+        }
+
+        // 支付挂号费
+        [HttpPost("{registrationId}/placeOrder")]
+        [Authorize]
+        public async Task<IActionResult> PlaceOrder([FromRoute] Guid registrationId)
+        {
+            // 1. 获得当前用户信息
+            var patientId = _httpContextAccessor
+                .HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            // 2. 开始处理支付
+            var registration = await _affairsRepository.GetRegistrationByRegistrationId(registrationId);
+            // var order = await _resourceRepository.GetOrderByOrderIdAsync(orderId);
+            registration.PaymentProcessing();
+            // order.PaymentProcessing(); // 处理订单，pending->processing
+            // 但是目前订单状态的改变是内存中的改变，需要在数据库中持久化
+            await _affairsRepository.SaveAsync();
+            // await _userRepository.SaveAsync();
+
+            // 3. 向第三方提交支付请求，等待第三方相应
+            // 需要添加http请求的服务依赖（见Startup.cs以及本文件最上面）
+            var httpClient = _httpClientFactory.CreateClient();
+            string url = @"http://123.56.149.216/api/FakePaymentProcess?icode={0}&orderNumber={1}&returnFault={2}";
+            var response = await httpClient.PostAsync(
+                string.Format(url, "417291C5E5EADD9A", registration.Id, false), // 第一个参数，请求地址
+                null // 第二个参数，请求主体
+                );
+
+            // Console.WriteLine("response is {0}", response.IsSuccessStatusCode);
+            // 4. 从第三方相应中提取支付信息、支付结果
+            bool isApprove = false; // 保存支付结果
+            string transactionMetadate = ""; // 以字符串形式保存支付信息
+            if (response.IsSuccessStatusCode) // 表示返回200 Ok
+            {
+                transactionMetadate = await response.Content.ReadAsStringAsync();
+                // 将相应字符串转换为json对象
+                var jsonObject = (JObject)JsonConvert.DeserializeObject(transactionMetadate);
+                isApprove = jsonObject["approved"].Value<bool>();
+            }
+
+            // 5. 如果第三方支付成功，完成订单
+            if (isApprove)
+            {
+                registration.PaymentApprove();
+            }
+            else
+            {
+                registration.PaymentReject();
+            }
+            registration.TransactionMetadata = transactionMetadate;
+            await _affairsRepository.SaveAsync();
+
             return Ok(_mapper.Map<RegistrationDto>(registration));
         }
     }

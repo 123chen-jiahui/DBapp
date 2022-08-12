@@ -15,6 +15,6 @@ namespace Hospital.Dtos
         public int Order { get; set; }
         public int fee { get; set; }
         public string State { get; set; }
-        public DateTime CreateDateUTC { get; set; }
+        public DateTime CreateDateLocal { get; set; }
     }
 }

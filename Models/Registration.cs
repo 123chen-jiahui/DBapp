@@ -12,6 +12,13 @@ namespace Hospital.Models
     [Table("REGISTRATIONS")]
     public class Registration
     {
+        // 构建函数的作用：每次创建订单的时候都会初始化订单的状态机
+        public Registration()
+        {
+            StateMachineInit();
+        }
+
+
         [Key]
         [Required]
         [Column("ID")]
@@ -47,8 +54,8 @@ namespace Hospital.Models
         [Required]
         public OrderStateEnum State { get; set; }
 
-        [Column("CREATE_DATE_UTC")]
-        public DateTime CreateDateUTC { get; set; }
+        [Column("CREATE_DATE_LOCAL")]
+        public DateTime CreateDateLocal { get; set; }
 
         [Required]
         [Column("TRANSACTION_METADATA")]

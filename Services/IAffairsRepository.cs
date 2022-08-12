@@ -20,6 +20,7 @@ namespace Hospital.Services
 
         // 挂号
         Task AddRegistrationAsync(Registration registration);
+        Task<Registration> GetRegistrationByRegistrationId(Guid registrationId);
         Task<bool> SaveAsync();
     }
 }
