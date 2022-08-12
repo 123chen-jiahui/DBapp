@@ -3,15 +3,17 @@ using System;
 using Hospital.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Oracle.EntityFrameworkCore.Metadata;
 
 namespace Hospital.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220812095553_UpdateRegistration")]
+    partial class UpdateRegistration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -416,14 +418,6 @@ namespace Hospital.Migrations
                         .HasColumnType("TIMESTAMP(7)")
                         .HasColumnName("CREATE_DATE_UTC");
 
-                    b.Property<int>("Day")
-                        .HasColumnType("NUMBER(10)")
-                        .HasColumnName("DAY");
-
-                    b.Property<int>("Order")
-                        .HasColumnType("NUMBER(10)")
-                        .HasColumnName("ORDER");
-
                     b.Property<int>("PatientId")
                         .HasColumnType("NUMBER(10)")
                         .HasColumnName("PATIENT_ID");
@@ -440,10 +434,6 @@ namespace Hospital.Migrations
                     b.Property<int>("State")
                         .HasColumnType("NUMBER(10)")
                         .HasColumnName("STATE");
-
-                    b.Property<DateTime>("Time")
-                        .HasColumnType("TIMESTAMP(7)")
-                        .HasColumnName("TIME");
 
                     b.Property<string>("TransactionMetadata")
                         .IsRequired()

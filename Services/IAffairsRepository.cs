@@ -17,6 +17,9 @@ namespace Hospital.Services
         Task<IEnumerable<Schedule>> GetScheduleAsync(int staffId);
         Task<Schedule> GetScheduleOfOneDay(int staffId, int day);
         void AddSchedule(Schedule staff_TimeSlot);
+
+        // 挂号
+        Task AddRegistrationAsync(Registration registration);
         Task<bool> SaveAsync();
     }
 }

@@ -3,15 +3,17 @@ using System;
 using Hospital.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Oracle.EntityFrameworkCore.Metadata;
 
 namespace Hospital.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220812095815_UpdateRegistration2")]
+    partial class UpdateRegistration2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -416,22 +418,9 @@ namespace Hospital.Migrations
                         .HasColumnType("TIMESTAMP(7)")
                         .HasColumnName("CREATE_DATE_UTC");
 
-                    b.Property<int>("Day")
-                        .HasColumnType("NUMBER(10)")
-                        .HasColumnName("DAY");
-
-                    b.Property<int>("Order")
-                        .HasColumnType("NUMBER(10)")
-                        .HasColumnName("ORDER");
-
                     b.Property<int>("PatientId")
                         .HasColumnType("NUMBER(10)")
                         .HasColumnName("PATIENT_ID");
-
-                    b.Property<string>("RoomId")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR2(450)")
-                        .HasColumnName("ROOM_ID");
 
                     b.Property<int>("StaffId")
                         .HasColumnType("NUMBER(10)")
@@ -440,10 +429,6 @@ namespace Hospital.Migrations
                     b.Property<int>("State")
                         .HasColumnType("NUMBER(10)")
                         .HasColumnName("STATE");
-
-                    b.Property<DateTime>("Time")
-                        .HasColumnType("TIMESTAMP(7)")
-                        .HasColumnName("TIME");
 
                     b.Property<string>("TransactionMetadata")
                         .IsRequired()
@@ -457,8 +442,6 @@ namespace Hospital.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("PatientId");
-
-                    b.HasIndex("RoomId");
 
                     b.HasIndex("StaffId");
 
@@ -981,12 +964,6 @@ namespace Hospital.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Hospital.Models.Room", "Room")
-                        .WithMany()
-                        .HasForeignKey("RoomId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Hospital.Models.Staff", "Staff")
                         .WithMany("Registrations")
                         .HasForeignKey("StaffId")
@@ -994,8 +971,6 @@ namespace Hospital.Migrations
                         .IsRequired();
 
                     b.Navigation("Patient");
-
-                    b.Navigation("Room");
 
                     b.Navigation("Staff");
                 });

@@ -54,6 +54,12 @@ namespace Hospital.Services
             _context.Schedules.Add(staff_TimeSlot);
         }
 
+        // 挂号
+        public async Task AddRegistrationAsync(Registration registration)
+        {
+            await _context.Registrations.AddAsync(registration);
+        }
+
         public async Task<bool> SaveAsync()
         {
             return (await _context.SaveChangesAsync() >= 0);
