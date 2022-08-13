@@ -70,6 +70,21 @@ namespace Hospital.Services
             return await _context.Registrations.Where(r => r.PatientId == patientId).ToListAsync();
         }
 
+        // waitline
+        public async Task AddWaitLineAsync(WaitLine waitLine)
+        {
+            await _context.WaitLines.AddAsync(waitLine);
+        }
+
+        public async Task<IEnumerable<WaitLine>> GetWaitLinesAsync(int staffId, int day)
+        {
+            IQueryable<WaitLine> res = _context.WaitLines.Where(wl => wl.StaffId == staffId && wl.Day == day);
+            // var res = await _context.WaitLines.Where(wl => wl.StaffId == staffId && wl.Day == day).ToListAsync();
+            res = res.OrderBy(r => r.Order);
+            return await res.ToListAsync();
+            // return await _context.WaitLines.Where(wl => wl.StaffId == staffId && wl.Day == day).ToListAsync();
+        }
+
         public async Task<bool> SaveAsync()
         {
             return (await _context.SaveChangesAsync() >= 0);

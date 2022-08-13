@@ -23,6 +23,10 @@ namespace Hospital.Services
         Task<Registration> GetRegistrationByRegistrationId(Guid registrationId);
         Task<IEnumerable<Registration>> GetRegistrationsAsync(int patientId); // 查看某个病人的历史挂号信息
         // Task<Registration> GetRegistrationByRegistrationId(Guid registrationId);
+
+        // waitline
+        Task AddWaitLineAsync(WaitLine waitLine);
+        Task<IEnumerable<WaitLine>> GetWaitLinesAsync(int staffId, int day);
         Task<bool> SaveAsync();
     }
 }

@@ -125,6 +125,17 @@ namespace Hospital.Controllers
             // 使容量-1
             schedule.Capacity -= 1;
 
+            // 将信息加入到waitline中
+            var waitline = new WaitLine()
+            {
+                Id = Guid.NewGuid(),
+                StaffId = registration.StaffId,
+                PatientId = registration.PatientId,
+                Day = registration.Day,
+                Order = registration.Order
+            };
+            await _affairsRepository.AddWaitLineAsync(waitline);
+
             // 保存数据
             await _affairsRepository.AddRegistrationAsync(registration);
             await _affairsRepository.SaveAsync();

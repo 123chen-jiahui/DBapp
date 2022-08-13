@@ -33,6 +33,7 @@ namespace Hospital.Database
         public DbSet<LineItem> LineItems { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<TimeSlot> TimeSlots { get; set; }
+        public DbSet<WaitLine> WaitLines { get; set; }
         // public DbSet<Staff_TimeSlot> Staff_TimeSlots { get; set; }
         // public DbSet<Staff_Room> Staff_Rooms { get; set; }
         public DbSet<Schedule> Schedules { get; set; }

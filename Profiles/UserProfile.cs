@@ -21,6 +21,18 @@ namespace Hospital.Profiles
             return age;
         }
 
+        public string GetGender(Gender gender)
+        {
+            if (gender == Gender.female)
+            {
+                return "女";
+            }
+            else
+            {
+                return "男";
+            }
+        }
+
         public UserProfile()
         {
             CreateMap<RegisterForPatientDto, Patient>();
@@ -32,6 +44,16 @@ namespace Hospital.Profiles
                     opt => opt.MapFrom(src => GetAge(src.Birthday))
             );
             CreateMap<GuahaoDto, Registration>();
+
+            CreateMap<Patient, PatientDto>()
+                .ForMember(
+                    dest => dest.Age,
+                    opt => opt.MapFrom(src => GetAge(src.Birthday))
+                )
+                .ForMember(
+                    dest => dest.Gender,
+                    opt => opt.MapFrom(src => GetGender(src.Gender))
+            );
         }
     }
 }
