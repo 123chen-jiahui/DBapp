@@ -65,6 +65,11 @@ namespace Hospital.Services
             return await _context.Registrations.Where(r => r.Id == registrationId).FirstOrDefaultAsync();
         }
 
+        public async Task<IEnumerable<Registration>> GetRegistrationsAsync(int patientId)
+        {
+            return await _context.Registrations.Where(r => r.PatientId == patientId).ToListAsync();
+        }
+
         public async Task<bool> SaveAsync()
         {
             return (await _context.SaveChangesAsync() >= 0);

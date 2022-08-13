@@ -21,6 +21,8 @@ namespace Hospital.Services
         // 挂号
         Task AddRegistrationAsync(Registration registration);
         Task<Registration> GetRegistrationByRegistrationId(Guid registrationId);
+        Task<IEnumerable<Registration>> GetRegistrationsAsync(int patientId); // 查看某个病人的历史挂号信息
+        // Task<Registration> GetRegistrationByRegistrationId(Guid registrationId);
         Task<bool> SaveAsync();
     }
 }

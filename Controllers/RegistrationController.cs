@@ -184,5 +184,30 @@ namespace Hospital.Controllers
 
             return Ok(_mapper.Map<RegistrationDto>(registration));
         }
+
+
+        // 查看历史挂号信息
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> GetRegistrations()
+        {
+            var patientId = _httpContextAccessor
+                .HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            var registrations = await _affairsRepository.GetRegistrationsAsync(Convert.ToInt32(patientId));
+            return Ok(_mapper.Map<IEnumerable<RegistrationDto>>(registrations));
+        }
+
+        // 查看某条挂号详细信息
+        [HttpGet("{registrationId}")]
+        [Authorize]
+        public async Task<IActionResult> GetRegistrationByRegistrationId([FromRoute] Guid registrationId)
+        {
+            var patientId = _httpContextAccessor
+                .HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            var registration = await _affairsRepository.GetRegistrationByRegistrationId(registrationId);
+            return Ok(_mapper.Map<RegistrationDto>(registration));
+        }
     }
 }
