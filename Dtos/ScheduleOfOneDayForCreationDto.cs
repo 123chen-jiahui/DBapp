@@ -12,5 +12,6 @@ namespace Hospital.Dtos
         public int TimeSlotId { get; set; }
         public string RoomId { get; set; }
         public int Capacity { get; set; } // 根据工作时间自动生成
+        public int Total { get; set; }
     }
 }

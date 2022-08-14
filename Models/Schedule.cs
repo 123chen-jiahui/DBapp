@@ -31,5 +31,8 @@ namespace Hospital.Models
 
         [Column("CAPACITY")]
         public int Capacity { get; set; } // 根据工作时间自动生成
+
+        [Column("TOTAL")]
+        public int Total { get; set; }
     }
 }

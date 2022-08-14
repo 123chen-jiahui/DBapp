@@ -79,6 +79,7 @@ namespace Hospital.Controllers
                 var timeSlot = await _affairsRepository.GetTimeSlotAsync(timeSlotId);
 
                 scheduleOfOneDayForCreationDto.Capacity = 6 * (timeSlot.EndTime - timeSlot.StartTime);
+                scheduleOfOneDayForCreationDto.Total = scheduleOfOneDayForCreationDto.Capacity;
                 scheduleToReturn.Add(_mapper.Map<ScheduleDto>(scheduleOfOneDayForCreationDto));
                 _affairsRepository.AddSchedule(_mapper.Map<Schedule>(scheduleOfOneDayForCreationDto));
             }
@@ -102,7 +103,18 @@ namespace Hospital.Controllers
             [FromBody] ScheduleForUpdationDto scheduleForUpdationDto
         )
         {
+            // 要进行时间检查，近三天的不能更改
             int day = scheduleForUpdationDto.Day;
+            int today = (int)DateTime.Now.DayOfWeek;
+
+            Console.WriteLine("today: {0}", today);
+
+            if ((day + 7 - today) % 7 < 3)
+            {
+                return BadRequest("只能修改两天后的排班");
+            }
+
+
             // 原来的数据
             var scheduleOfOneDay = await _affairsRepository.GetScheduleOfOneDay(staffId, day);
             if (scheduleOfOneDay == null)
@@ -113,6 +125,7 @@ namespace Hospital.Controllers
             // 修改容量
             var timeSlot = await _affairsRepository.GetTimeSlotAsync(scheduleForUpdationDto.TimeSlotId);
             scheduleOfOneDay.Capacity = 6 * (timeSlot.EndTime - timeSlot.StartTime);
+            scheduleOfOneDay.Total = scheduleOfOneDay.Capacity;
 
             // 映射
             _mapper.Map(scheduleForUpdationDto, scheduleOfOneDay);

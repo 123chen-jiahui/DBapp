@@ -80,7 +80,12 @@ namespace Hospital.Controllers
             int staffId = registrationForCreationDto.StaffId;
             int day = registrationForCreationDto.Day;
 
-            // 前端保证输入的day与今天的差值小于等于3
+            // 输入的day与今天的差值小于3
+            int today = (int)DateTime.Now.DayOfWeek;
+            if ((day + 7 - today) % 7 >= 3)
+            {
+                return BadRequest("只能预约三天内的挂号");
+            }
 
             // 找到该医生该天的schedul
             var schedule = await _affairsRepository.GetScheduleOfOneDay(staffId, day);
@@ -88,8 +93,9 @@ namespace Hospital.Controllers
             int remaining = schedule.Capacity;
 
             // 获取timeslot以获取总容量
+            // 经过改动，现在总容量在total字段中
             var timeSlot = await _affairsRepository.GetTimeSlotAsync(timeSlotId);
-            int total = 6 * (timeSlot.EndTime - timeSlot.StartTime);
+            // int total = 6 * (timeSlot.EndTime - timeSlot.StartTime);
 
             // 预约日期
             DateTime time = DateTime.Now.AddDays((day + 7 - WeekOfDayToInt(DateTime.Now.DayOfWeek)) % 7);
@@ -101,7 +107,8 @@ namespace Hospital.Controllers
                 StaffId = staffId,
                 fee = 15,
                 Day = day,
-                Order = total - remaining + 1,
+                Order = schedule.Total - remaining + 1,
+                // Order = total - remaining + 1,
                 Time = new DateTime(
                     time.Year,
                     time.Month,
@@ -112,8 +119,8 @@ namespace Hospital.Controllers
                     // DateTime.Today.Month,
                     // DateTime.Now.Day,
                     // DateTime.Today.Day,
-                    timeSlot.StartTime + (total - remaining) * 10 / 60,
-                    (total - remaining) * 10 % 60,
+                    timeSlot.StartTime + (schedule.Total - remaining) * 10 / 60,
+                    (schedule.Total - remaining) * 10 % 60,
                     0
                 ),
                 RoomId = schedule.RoomId,
