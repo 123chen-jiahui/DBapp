@@ -81,7 +81,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"Id\": 2000020,\r\n    \"Password\": \"12345678\"\r\n}",
+							"raw": "{\r\n    \"Id\": 2000000,\r\n    \"Password\": \"12345678\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -447,13 +447,13 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMDAwMDAwIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiUGF0aWVudCIsIm5iZiI6MTY2MDMwNzMyNywiZXhwIjoxNjYwMzkzNzI3LCJpc3MiOiJUb25namlIb3NwaXRhbC5jb20iLCJhdWQiOiJUb25namlIb3NwaXRhbC5jb20ifQ.YmtnHX9eH38en72On9rdH1-Q0iqUXIP-cKWyw4uDiNg",
+								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMDAwMDAwIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiUGF0aWVudCIsIm5iZiI6MTY2MDY5OTgzNSwiZXhwIjoxNjYwNzg2MjM1LCJpc3MiOiJUb25namlIb3NwaXRhbC5jb20iLCJhdWQiOiJUb25namlIb3NwaXRhbC5jb20ifQ.Yviw96z2LuQc1aqqsVisgKBHGn8Z743IcLlBU3hpE_4",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"StaffId\": 2000000,\r\n    \"Day\": 5\r\n}",
+							"raw": "{\r\n    \"StaffId\": 2000022,\r\n    \"Day\": 5\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -885,7 +885,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMDAwMDAwIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiTWVkaWNpbmVUb2tlbiIsIm5iZiI6MTY2MDM3MTI1MiwiZXhwIjoxNjYwNDU3NjUyLCJpc3MiOiJUb25namlIb3NwaXRhbC5jb20iLCJhdWQiOiJUb25namlIb3NwaXRhbC5jb20ifQ.-2nnkFnbTeLEWd1MffXWTiPXXYW2E05LNVSDuA3gZms",
+								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMDAwMDAwIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiTWVkaWNpbmVUb2tlbiIsIm5iZiI6MTY2MDY2MzU3MiwiZXhwIjoxNjYwNzQ5OTcyLCJpc3MiOiJUb25namlIb3NwaXRhbC5jb20iLCJhdWQiOiJUb25namlIb3NwaXRhbC5jb20ifQ.G_fI6YoobAg9ie2VgfDctRNq-egRp__McNAbh00Dg3g",
 								"type": "text"
 							}
 						],
@@ -911,6 +911,33 @@
 							"path": [
 								"patients",
 								"1000000"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "科室模块",
+			"item": [
+				{
+					"name": "获取科室信息",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://118.31.108.144:8080/department",
+							"protocol": "http",
+							"host": [
+								"118",
+								"31",
+								"108",
+								"144"
+							],
+							"port": "8080",
+							"path": [
+								"department"
 							]
 						}
 					},
