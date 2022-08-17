@@ -74,6 +74,8 @@ namespace Hospital.Controllers
         [Authorize]
         public async Task<IActionResult> Checkout([FromBody] RegistrationForCreationDto registrationForCreationDto)
         {
+            // 这个函数有bug，记得修复。如果还需要对医生的排班信息进行检查
+            // 如果该医生在这天没有安排排班，需要提示相应信息，而不是返回500
             var patientId = _httpContextAccessor
                 .HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 

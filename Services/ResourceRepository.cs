@@ -66,5 +66,10 @@ namespace Hospital.Services
                 .Where(o => o.Id == orderId)
                 .FirstOrDefaultAsync();
         }
+
+        public async Task<bool> SaveAsync()
+        {
+            return (await _context.SaveChangesAsync() >= 0);
+        }
     }
 }

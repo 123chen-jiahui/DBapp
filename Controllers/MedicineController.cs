@@ -38,5 +38,27 @@ namespace Hospital.Controllers
 
             return Ok(_mapper.Map<IEnumerable<MedicineDto>>(medicine));
         }
+
+        [HttpPost("output")]
+        [Authorize] // 这里的权限验证是为了方便起见
+        public async Task<IActionResult> OutPut([FromBody] MedicineForDeletionDto medicineForDeletionDto)
+        {
+            int idLen = medicineForDeletionDto.Id.Length;
+            int numberLen = medicineForDeletionDto.Number.Length;
+            
+            if (idLen != numberLen)
+            {
+                return BadRequest("药品和数量无法一一对应");
+            }
+
+            for (int i = 0; i < idLen; i ++)
+            {
+                var medicine = await _resourceRepository.GetMedicineAsync(medicineForDeletionDto.Id[i]);
+                medicine.Inventory -= medicineForDeletionDto.Number[i];
+            }
+            await _resourceRepository.SaveAsync();
+            return NoContent();
+        }
+
     }
 }

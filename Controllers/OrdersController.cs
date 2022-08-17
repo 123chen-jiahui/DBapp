@@ -65,12 +65,12 @@ namespace Hospital.Controllers
 
         // 查看订单详情
         [HttpGet("{orderId}")]
-        [Authorize(Roles = "Patient")]
+        [Authorize/*(Roles = "Patient")*/]
         public async Task<IActionResult> GetOrderByOrderId([FromRoute] Guid orderId)
         {
             // 1. 获得当前病人
-            var patientId = _httpContextAccessor
-                .HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            /*var patientId = _httpContextAccessor
+                .HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;*/
 
             var order = await _resourceRepository.GetOrderByOrderIdAsync(orderId);
 

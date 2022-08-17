@@ -2,6 +2,7 @@
 	"info": {
 		"_postman_id": "50be02ef-1ce8-408c-8130-bc2b5d897324",
 		"name": "TongjiHospital",
+		"description": "供测试用的员工账号：\n\n其中Role为0,1,2分别表示管理员、门诊医生、取药医生\n\n| **Id** | **Password** | **Role** |\n| --- | --- | --- |\n| 2000000 | 12345678 | 2 |\n| 2000021 | RW7fGxEV34d | 0 |\n| 2000022 | adhk7__dKX | 1 |\n\n供测试使用的病人账号\n\n| **Id** | **Password** |\n| --- | --- |\n| 1000000 | 12345678 |\n| 1000001 | 123456 |\n| 1000002 | 123456 |",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "22258660"
 	},
@@ -791,6 +792,44 @@
 									"key": "keyWord",
 									"value": "胶囊"
 								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "批量删除药品",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMDAwMDIyIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiRG9jdG9yIiwibmJmIjoxNjYwNzA3Nzk0LCJleHAiOjE2NjMzODYxOTQsImlzcyI6IlRvbmdqaUhvc3BpdGFsLmNvbSIsImF1ZCI6IlRvbmdqaUhvc3BpdGFsLmNvbSJ9.JrCE5mIxjZ4rWpE6XHlD3U5jPnD4OpXKLV1oAlUxXXc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Id\": [\"H19994016\", \"Z20040063\"],\r\n    \"Number\": [2, 2]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://118.31.108.144:8080/medicine/output",
+							"protocol": "http",
+							"host": [
+								"118",
+								"31",
+								"108",
+								"144"
+							],
+							"port": "8080",
+							"path": [
+								"medicine",
+								"output"
 							]
 						}
 					},

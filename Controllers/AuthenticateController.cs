@@ -68,7 +68,7 @@ namespace Hospital.Controllers
                 audience: _configuration["Authentication:Audience"],
                 claims,
                 notBefore: DateTime.UtcNow, // 发布时间
-                expires: DateTime.UtcNow.AddDays(1), // 有效期，一天
+                expires: DateTime.UtcNow.AddDays(31), // 有效期，一天
                 signingCredentials // 数字签名
             );
             return new JwtSecurityTokenHandler().WriteToken(token);
