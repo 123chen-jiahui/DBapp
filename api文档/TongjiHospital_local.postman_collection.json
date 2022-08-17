@@ -1,0 +1,821 @@
+{
+	"info": {
+		"_postman_id": "64f27398-367b-4a29-9295-b163820ec7ab",
+		"name": "TongjiHospital_local",
+		"description": "供测试用的员工账号：\n\n其中Role为0,1,2分别表示管理员、门诊医生、取药医生\n\n| **Id** | **Password** | **Role** |\n| --- | --- | --- |\n| 2000000 | 12345678 | 2 |\n| 2000021 | RW7fGxEV34d | 0 |\n| 2000022 | adhk7__dKX | 1 |\n\n供测试使用的病人账号\n\n| **Id** | **Password** |\n| --- | --- |\n| 1000000 | 12345678 |\n| 1000001 | 123456 |\n| 1000002 | 123456 |",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22258660"
+	},
+	"item": [
+		{
+			"name": "身份认证模块",
+			"item": [
+				{
+					"name": "病人登录",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Id\": 1000000,\r\n    \"Password\": \"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:5001/auth/login_patient",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"auth",
+								"login_patient"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "病人注册",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"GlobalId\": \"000000000000000000\",\r\n    \"Password\": \"12345678\",\r\n    \"ConfirmPassword\": \"12345678\",\r\n    \"Name\": \"李四\",\r\n    \"Gender\": 0,\r\n    \"Birthday\": \"1966-06-07\",\r\n    \"Phone\": \"55555555555\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:5001/auth/register_patient",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"auth",
+								"register_patient"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "员工登录",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Id\": 2000022,\r\n    \"Password\": \"adhk7__dKX\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:5001/auth/login_staff",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"auth",
+								"login_staff"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "员工注册",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"GlobalId\": \"111111122222333445\",\r\n    \"Password\": \"12345678\",\r\n    \"ConfirmPassword\": \"12345678\",\r\n    \"Role\": 1,\r\n    \"Name\": \"张作霖\",\r\n    \"Gender\": 1,\r\n    \"Birthday\": \"1955-01-24\",\r\n    \"Address\": \"东北\",\r\n    \"Phone\": \"22222222222\",\r\n    \"DepartmentId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:5001/auth/register_staff",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"auth",
+								"register_staff"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "购物车（处方）模块",
+			"item": [
+				{
+					"name": "获取病人当前的处方",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMDAwMDIyIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiRG9jdG9yIiwibmJmIjoxNjYwNDU4MDM0LCJleHAiOjE2NjA1NDQ0MzQsImlzcyI6IlRvbmdqaUhvc3BpdGFsLmNvbSIsImF1ZCI6IlRvbmdqaUhvc3BpdGFsLmNvbSJ9._QW7L258cB_ejpqOFkbIK2SLpVZycYUHys57tmGu0Eo",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://localhost:5001/api/shoppingCart/1000000",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"shoppingCart",
+								"1000000"
+							]
+						},
+						"description": "返回的id表示病人的购物车id\n\nshoppingCartItems表示购物车中的内容"
+					},
+					"response": []
+				},
+				{
+					"name": "将药品添加进处方",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMDAwMDIyIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiRG9jdG9yIiwibmJmIjoxNjYwNDU4MDM0LCJleHAiOjE2NjA1NDQ0MzQsImlzcyI6IlRvbmdqaUhvc3BpdGFsLmNvbSIsImF1ZCI6IlRvbmdqaUhvc3BpdGFsLmNvbSJ9._QW7L258cB_ejpqOFkbIK2SLpVZycYUHys57tmGu0Eo",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Id\": \"Z20040063\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:5001/api/shoppingCart/items/1000000",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"shoppingCart",
+								"items",
+								"1000000"
+							]
+						},
+						"description": "外层id表示购物车id\n\n内层id表示该物品生成的编号，如果要从购物车中删除该物品，需借助这个id"
+					},
+					"response": []
+				},
+				{
+					"name": "将药品从处方中删除",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMDAwMDIyIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiRG9jdG9yIiwibmJmIjoxNjYwNDU4MDM0LCJleHAiOjE2NjA1NDQ0MzQsImlzcyI6IlRvbmdqaUhvc3BpdGFsLmNvbSIsImF1ZCI6IlRvbmdqaUhvc3BpdGFsLmNvbSJ9._QW7L258cB_ejpqOFkbIK2SLpVZycYUHys57tmGu0Eo",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://localhost:5001/api/shoppingCart/items/1000000/61",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"shoppingCart",
+								"items",
+								"1000000",
+								"61"
+							]
+						},
+						"description": "删除成功返回204"
+					},
+					"response": []
+				},
+				{
+					"name": "将药品从处方中批量删除",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMDAwMDIwIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiRG9jdG9yIiwibmJmIjoxNjYwMTIyMDU2LCJleHAiOjE2NjAyMDg0NTYsImlzcyI6IlRvbmdqaUhvc3BpdGFsLmNvbSIsImF1ZCI6IlRvbmdqaUhvc3BpdGFsLmNvbSJ9.QhMorXMiNIqm0NlICknIIMFFzXed4uiG62biERCMBfs",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://localhost:5001/api/shoppingCart/items/1000000/(18, 19, 20)",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"shoppingCart",
+								"items",
+								"1000000",
+								"(18, 19, 20)"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "将处方生成订单",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMDAwMDIyIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiRG9jdG9yIiwibmJmIjoxNjYwNDU4MDM0LCJleHAiOjE2NjA1NDQ0MzQsImlzcyI6IlRvbmdqaUhvc3BpdGFsLmNvbSIsImF1ZCI6IlRvbmdqaUhvc3BpdGFsLmNvbSJ9._QW7L258cB_ejpqOFkbIK2SLpVZycYUHys57tmGu0Eo",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://localhost:5001/api/shoppingCart/checkout/1000000",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"shoppingCart",
+								"checkout",
+								"1000000"
+							]
+						},
+						"description": "state表示当前订单状态\n\npending表示处理中\n\ncreateDateUTC表示订单创建时间（这里是UTC时间而不是北京时间，算是一个bug，但是我懒得改了，毕竟无伤大雅）\n\ntransactionMetadata表示支付信息，由于目前只是生成了订单，并没有支付，所以我随便设置了一个\"what\"，等支付完成后，会显示正常信息"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "订单模块",
+			"item": [
+				{
+					"name": "查看历史订单",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMDAwMDAwIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiUGF0aWVudCIsIm5iZiI6MTY2MDEyMjc0MCwiZXhwIjoxNjYwMjA5MTQwLCJpc3MiOiJUb25namlIb3NwaXRhbC5jb20iLCJhdWQiOiJUb25namlIb3NwaXRhbC5jb20ifQ.DxMF5TgUC4YA7kZkCD8_Tl6nMkUsW6nWZCxpDvF1pKQ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://localhost:5001/api/orders",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查看订单详情",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMDAwMDAwIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiUGF0aWVudCIsIm5iZiI6MTY2MDEyMjc0MCwiZXhwIjoxNjYwMjA5MTQwLCJpc3MiOiJUb25namlIb3NwaXRhbC5jb20iLCJhdWQiOiJUb25namlIb3NwaXRhbC5jb20ifQ.DxMF5TgUC4YA7kZkCD8_Tl6nMkUsW6nWZCxpDvF1pKQ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://localhost:5001/api/orders/dbc56c71-6d29-4fe0-9797-85243a91be40",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"orders",
+								"dbc56c71-6d29-4fe0-9797-85243a91be40"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "支付",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:5001/api/orders/a5e02a43-779f-4f78-ab09-5a1eb6d20316/placeOrder",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"orders",
+								"a5e02a43-779f-4f78-ab09-5a1eb6d20316",
+								"placeOrder"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "挂号模块",
+			"item": [
+				{
+					"name": "获取医生信息",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:5001/staff/1?pageNumber=1&pageSize=2",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"staff",
+								"1"
+							],
+							"query": [
+								{
+									"key": "pageNumber",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "2"
+								}
+							]
+						},
+						"description": "这里多了两个奇怪的参数pageNumber和pageSize，主要是为了实现分页。由于数据库数据很多，不可能将所有数据返回，所以pageNumber指定了页号，pageSize则指定了每页大小"
+					},
+					"response": []
+				},
+				{
+					"name": "挂号",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMDAwMDAwIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiUGF0aWVudCIsIm5iZiI6MTY2MDQ1NzIyOSwiZXhwIjoxNjYwNTQzNjI5LCJpc3MiOiJUb25namlIb3NwaXRhbC5jb20iLCJhdWQiOiJUb25namlIb3NwaXRhbC5jb20ifQ.odFvcMUk4B7sK-5Stho2V6BL_0n9yjuk8jSsq_zG068",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"StaffId\": 2000000,\r\n    \"Day\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:5001/registration/checkout",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"registration",
+								"checkout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "支付挂号费",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMDAwMDAwIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiUGF0aWVudCIsIm5iZiI6MTY2MDQ1NzIyOSwiZXhwIjoxNjYwNTQzNjI5LCJpc3MiOiJUb25namlIb3NwaXRhbC5jb20iLCJhdWQiOiJUb25namlIb3NwaXRhbC5jb20ifQ.odFvcMUk4B7sK-5Stho2V6BL_0n9yjuk8jSsq_zG068",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://localhost:5001/registration/40869d06-20d6-4ef5-89df-94717925baf1/placeOrder",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"registration",
+								"40869d06-20d6-4ef5-89df-94717925baf1",
+								"placeOrder"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查看历史挂号信息",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMDAwMDAwIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiUGF0aWVudCIsIm5iZiI6MTY2MDQ1NzIyOSwiZXhwIjoxNjYwNTQzNjI5LCJpc3MiOiJUb25namlIb3NwaXRhbC5jb20iLCJhdWQiOiJUb25namlIb3NwaXRhbC5jb20ifQ.odFvcMUk4B7sK-5Stho2V6BL_0n9yjuk8jSsq_zG068",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://localhost:5001/registration/",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"registration",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查看某一次挂号详情",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMDAwMDAwIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiUGF0aWVudCIsIm5iZiI6MTY2MDQ1NzIyOSwiZXhwIjoxNjYwNTQzNjI5LCJpc3MiOiJUb25namlIb3NwaXRhbC5jb20iLCJhdWQiOiJUb25namlIb3NwaXRhbC5jb20ifQ.odFvcMUk4B7sK-5Stho2V6BL_0n9yjuk8jSsq_zG068",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://localhost:5001/registration/40869d06-20d6-4ef5-89df-94717925baf1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"registration",
+								"40869d06-20d6-4ef5-89df-94717925baf1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "员工事务模块",
+			"item": [
+				{
+					"name": "获取time_slot信息",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:5001/time_slot/2",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"time_slot",
+								"2"
+							]
+						},
+						"description": "time_slot表示工作时间，在数据库中 time_slot有三个字段：id，startTime，endTime"
+					},
+					"response": []
+				},
+				{
+					"name": "创建time_slot",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"StartTime\": 7,\r\n    \"EndTime\": 9\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:5001/time_slot",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"time_slot"
+							]
+						},
+						"description": "time_slot的id自动生成，所以在创建时只需要startTime和endTime\n\n其数值只支持0-23之间（含）的整数\n\n另外，不能创建重复的time_slot，否则数据库报错。此外，startTime必须小于endTime"
+					},
+					"response": []
+				},
+				{
+					"name": "获取全部time_slot信息",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:5001/time_slot",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"time_slot"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查看一周排班",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:5001/schedule/2000000",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"schedule",
+								"2000000"
+							]
+						},
+						"description": "day从0-6表示星期日-星期六"
+					},
+					"response": []
+				},
+				{
+					"name": "创建一周排班",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"StaffId\": 2000000,\r\n    \"Day\": [0, 1, 2, 3, 4, 5, 6],\r\n    \"TimeSlotId\": [1, 1, 1, 1, 1, 1, 1],\r\n    \"RoomId\": [\"201\", \"201\", \"201\", \"201\", \"201\", \"201\", \"201\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:5001/schedule",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"schedule"
+							]
+						},
+						"description": "注意day、timeslotid、roomid要以数组形式，并且个数为7，表示创建一周的排班"
+					},
+					"response": []
+				},
+				{
+					"name": "更新某个员工某一天排班信息",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Day\": 2,\r\n    \"TimeSlotId\": 3,\r\n    \"RoomId\": \"202\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:5001/schedule/2000000",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"schedule",
+								"2000000"
+							]
+						},
+						"description": "只能修改两天后的排班信息。比如今天是2022-8-14，**星期日**，所以只能day只能为3/4/5/6，否则返回BadRequest"
+					},
+					"response": []
+				}
+			],
+			"description": "该模块为管理员操作"
+		},
+		{
+			"name": "药品模块",
+			"item": [
+				{
+					"name": "根据关键词查找药品",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMDAwMDIyIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiRG9jdG9yIiwibmJmIjoxNjYwNDU4MDM0LCJleHAiOjE2NjA1NDQ0MzQsImlzcyI6IlRvbmdqaUhvc3BpdGFsLmNvbSIsImF1ZCI6IlRvbmdqaUhvc3BpdGFsLmNvbSJ9._QW7L258cB_ejpqOFkbIK2SLpVZycYUHys57tmGu0Eo",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://localhost:5001/medicine?keyWord=胶囊",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"medicine"
+							],
+							"query": [
+								{
+									"key": "keyWord",
+									"value": "胶囊"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "批量删除药品",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMDAwMDIyIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiRG9jdG9yIiwibmJmIjoxNjYwNzA3Nzk0LCJleHAiOjE2NjMzODYxOTQsImlzcyI6IlRvbmdqaUhvc3BpdGFsLmNvbSIsImF1ZCI6IlRvbmdqaUhvc3BpdGFsLmNvbSJ9.JrCE5mIxjZ4rWpE6XHlD3U5jPnD4OpXKLV1oAlUxXXc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Id\": [\"H19994016\", \"Z20040063\"],\r\n    \"Number\": [2, 2]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:5001/medicine",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"medicine"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "医生门诊模块",
+			"item": [
+				{
+					"name": "获取病人队列",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMDAwMDAwIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiTWVkaWNpbmVUb2tlbiIsIm5iZiI6MTY2MDM3MTI1MiwiZXhwIjoxNjYwNDU3NjUyLCJpc3MiOiJUb25namlIb3NwaXRhbC5jb20iLCJhdWQiOiJUb25namlIb3NwaXRhbC5jb20ifQ.-2nnkFnbTeLEWd1MffXWTiPXXYW2E05LNVSDuA3gZms",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://localhost:5001/waitline/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"waitline",
+								"1"
+							]
+						},
+						"description": "http请求中最后的数字表示星期几\n\n返回的信息时这一天该医生要诊断的病人的id的序列，已经按照挂号预约顺序排列\n\n每天23点，数据库自动清空当天的队列"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "病人信息模块",
+			"item": [
+				{
+					"name": "获取病人信息",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMDAwMDAwIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiTWVkaWNpbmVUb2tlbiIsIm5iZiI6MTY2MDM3MTI1MiwiZXhwIjoxNjYwNDU3NjUyLCJpc3MiOiJUb25namlIb3NwaXRhbC5jb20iLCJhdWQiOiJUb25namlIb3NwaXRhbC5jb20ifQ.-2nnkFnbTeLEWd1MffXWTiPXXYW2E05LNVSDuA3gZms",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:5001/patients/1000000",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"patients",
+								"1000000"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
