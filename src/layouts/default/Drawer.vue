@@ -103,8 +103,8 @@
         const prop = 'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
         // console.log(decode[prop])
         // 病人页面数和员工页面数
-        const PatientItem = item.length - 3
-        const StaffItem = 3
+        const PatientItem = item.length
+        const StaffItem = 0
         let ret = []
         // 如果是病人
         if (decode[prop] === 'Patient') {
