@@ -3,8 +3,8 @@
     class="ml-2"
     min-width="0"
     text
-    to="/"
     exact
+    @click="GoHome"
   >
     <v-icon>mdi-view-dashboard</v-icon>
   </v-btn>
@@ -13,5 +13,10 @@
 <script>
   export default {
     name: 'DefaultGoHome',
+    methods: {
+      GoHome () {
+        this.$router.push({ name: 'Dashboard' })
+      },
+    },
   }
 </script>

@@ -26,7 +26,7 @@
 
       <v-divider class="mx-3 mb-2" />
 
-      <default-list :items="items" />
+      <default-list :items="JudgeAccountType(items)" />
     </div>
 
     <!-- <template #append>
@@ -63,6 +63,7 @@
 <script>
   // Utilities
   import { get, sync } from 'vuex-pathify'
+  import jwtDecode from 'jwt-decode'
 
   export default {
     name: 'DefaultDrawer',
@@ -87,12 +88,33 @@
       ...get('app', [
         'items',
         'version',
+        'jwt',
       ]),
       ...sync('app', [
         'drawer',
         'drawerImage',
         'mini',
       ]),
+    },
+
+    methods: {
+      JudgeAccountType (item) {
+        const decode = jwtDecode(this.jwt)
+        const prop = 'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
+        // console.log(decode[prop])
+        // 病人页面数和员工页面数
+        const PatientItem = item.length - 3
+        const StaffItem = 3
+        let ret = []
+        // 如果是病人
+        if (decode[prop] === 'Patient') {
+          ret = item.slice(0, PatientItem)
+        } else {
+          ret.push(item[0])
+          ret = ret.concat(item.slice(PatientItem, PatientItem + StaffItem))
+        }
+        return ret
+      },
     },
   }
 </script>
