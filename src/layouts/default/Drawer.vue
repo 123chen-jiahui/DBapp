@@ -101,17 +101,33 @@
       JudgeAccountType (item) {
         const decode = jwtDecode(this.jwt)
         const prop = 'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
+        const role = decode[prop]
         // console.log(decode[prop])
-        // 病人页面数和员工页面数
-        const PatientItem = item.length
-        const StaffItem = 0
-        let ret = []
-        // 如果是病人
-        if (decode[prop] === 'Patient') {
-          ret = item.slice(0, PatientItem)
+        // 各个用户索引
+        const PatientItem = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        const AdminItem = [0, 1, 3]
+        const DoctorItem = [0, 1, 4]
+        const MedicineTokenItem = [0, 1, 5]
+        const ret = []
+        // 赋值
+        if (role === 'Patient') {
+          PatientItem.forEach(function (ele) {
+            ret.push(item[ele])
+          })
+        } else if (role === 'Admin') {
+          AdminItem.forEach(function (ele) {
+            ret.push(item[ele])
+          })
+        } else if (role === 'Doctor') {
+          DoctorItem.forEach(function (ele) {
+            ret.push(item[ele])
+          })
+        } else if (role === 'Medicine') {
+          MedicineTokenItem.forEach(function (ele) {
+            ret.push(item[ele])
+          })
         } else {
-          ret.push(item[0])
-          ret = ret.concat(item.slice(PatientItem, PatientItem + StaffItem))
+          ret.push(item[item.length - 1])
         }
         return ret
       },

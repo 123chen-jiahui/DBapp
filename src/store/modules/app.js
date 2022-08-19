@@ -9,21 +9,6 @@ const state = {
   jwt: '',
   items: [
     {
-      title: '工作管理',
-      icon: 'mdi-clipboard-text',
-      to: '/work',
-    },
-    {
-      title: '取药工作管理',
-      icon: 'mdi-clipboard-text',
-      to: '/medicine-work',
-    },
-    {
-      title: '事务管理',
-      icon: 'mdi-map-marker-alert',
-      to: '/affair',
-    },
-    {
       title: 'Dashboard',
       icon: 'mdi-view-dashboard',
       to: '/dashboard',
@@ -58,7 +43,26 @@ const state = {
       icon: 'mdi-bell',
       to: '/components/notifications/',
     },
-
+    {
+      title: '工作管理',
+      icon: 'mdi-clipboard-text',
+      to: '/work',
+    },
+    {
+      title: '取药工作管理',
+      icon: 'mdi-clipboard-text',
+      to: '/medicine-work',
+    },
+    {
+      title: '事务管理',
+      icon: 'mdi-map-marker-alert',
+      to: '/affair',
+    },
+    {
+      title: 'Error',
+      icon: 'mdi-alert',
+      to: '/error',
+    },
   ],
 }
 

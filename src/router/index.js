@@ -41,7 +41,7 @@ const router = new Router({
 
       // Maps
       route('Google Maps', null, 'maps/google'),
-
+      route('Error', null, 'error'),
       route('Work', null, 'work'),
       route('MedicineWork', null, 'medicine-work'),
       route('Affair', null, 'affair'),
