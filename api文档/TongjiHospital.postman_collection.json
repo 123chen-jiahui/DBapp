@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "50be02ef-1ce8-408c-8130-bc2b5d897324",
 		"name": "TongjiHospital",
-		"description": "供测试用的员工账号：\n\n其中Role为0,1,2分别表示管理员、门诊医生、取药医生\n\n| **Id** | **Password** | **Role** |\n| --- | --- | --- |\n| 2000000 | 12345678 | 2 |\n| 2000021 | RW7fGxEV34d | 0 |\n| 2000022 | adhk7__dKX | 1 |\n\n供测试使用的病人账号\n\n| **Id** | **Password** |\n| --- | --- |\n| 1000000 | 12345678 |\n| 1000001 | 123456 |\n| 1000002 | 123456 |",
+		"description": "供测试用的员工账号：\n\n其中Role为0,1,2分别表示管理员、门诊医生、取药医生\n\n| **Id** | **Password** | **Role** |\n| --- | --- | --- |\n| 2000000 | 12345678 | 2 |\n| 2000021 | RW7fGxEV34d | 0 |\n| 2000022 | adhk7__dKX | 1 |\n\n供测试使用的病人账号\n\n| **Id** | **Password** |\n| --- | --- |\n| 1000000 | 12345678 |\n| 1000040 | 12345678 |\n| 1000041 | 12345678 |",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "22258660"
 	},
@@ -324,12 +324,12 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMDAwMDAwIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiUGF0aWVudCIsIm5iZiI6MTY2MDEyMjc0MCwiZXhwIjoxNjYwMjA5MTQwLCJpc3MiOiJUb25namlIb3NwaXRhbC5jb20iLCJhdWQiOiJUb25namlIb3NwaXRhbC5jb20ifQ.DxMF5TgUC4YA7kZkCD8_Tl6nMkUsW6nWZCxpDvF1pKQ",
+								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMDAwMDAwIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiUGF0aWVudCIsIm5iZiI6MTY2MTA1MTc0MywiZXhwIjoxNjYzNzMwMTQzLCJpc3MiOiJUb25namlIb3NwaXRhbC5jb20iLCJhdWQiOiJUb25namlIb3NwaXRhbC5jb20ifQ.X_8fifMVNpKJVK0lSxb-VCzBbvEObLbsMHpPQye8DPQ",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "http://118.31.108.144:8080/api/orders",
+							"raw": "http://118.31.108.144:8080/api/orders?pageNumber=1&pageSize=5",
 							"protocol": "http",
 							"host": [
 								"118",
@@ -341,6 +341,16 @@
 							"path": [
 								"api",
 								"orders"
+							],
+							"query": [
+								{
+									"key": "pageNumber",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "5"
+								}
 							]
 						}
 					},
@@ -353,7 +363,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMDAwMDAwIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiUGF0aWVudCIsIm5iZiI6MTY2MDEyMjc0MCwiZXhwIjoxNjYwMjA5MTQwLCJpc3MiOiJUb25namlIb3NwaXRhbC5jb20iLCJhdWQiOiJUb25namlIb3NwaXRhbC5jb20ifQ.DxMF5TgUC4YA7kZkCD8_Tl6nMkUsW6nWZCxpDvF1pKQ",
+								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMDAwMDIyIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiRG9jdG9yIiwibmJmIjoxNjYxMTcxNDEwLCJleHAiOjE2NjM4NDk4MTAsImlzcyI6IlRvbmdqaUhvc3BpdGFsLmNvbSIsImF1ZCI6IlRvbmdqaUhvc3BpdGFsLmNvbSJ9.Ca5bp5W2av_nsOjqNHPs0vEshI6tB0qy4_0qD9vB2eY",
 								"type": "text"
 							}
 						],
@@ -380,7 +390,13 @@
 					"name": "支付",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMDAwMDAwIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiRG9jdG9yIiwibmJmIjoxNjYxMjYyMTI0LCJleHAiOjE2NjM5NDA1MjQsImlzcyI6IlRvbmdqaUhvc3BpdGFsLmNvbSIsImF1ZCI6IlRvbmdqaUhvc3BpdGFsLmNvbSJ9.ZZXKsRvMBt0NuNi_bCiCBxLDt8kiIdL1Gn4yilmBrco",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "http://118.31.108.144:8080/api/orders/a5e02a43-779f-4f78-ab09-5a1eb6d20316/placeOrder",
 							"protocol": "http",
@@ -396,6 +412,79 @@
 								"orders",
 								"a5e02a43-779f-4f78-ab09-5a1eb6d20316",
 								"placeOrder"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查看历史订单（给员工的接口）",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMDAwMDAwIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiRG9jdG9yIiwibmJmIjoxNjYxMjYyMTI0LCJleHAiOjE2NjM5NDA1MjQsImlzcyI6IlRvbmdqaUhvc3BpdGFsLmNvbSIsImF1ZCI6IlRvbmdqaUhvc3BpdGFsLmNvbSJ9.ZZXKsRvMBt0NuNi_bCiCBxLDt8kiIdL1Gn4yilmBrco",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://118.31.108.144:8080/api/orders/forDoctor/1000000?pageNumber=1&pageSize=5",
+							"protocol": "http",
+							"host": [
+								"118",
+								"31",
+								"108",
+								"144"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"orders",
+								"forDoctor",
+								"1000000"
+							],
+							"query": [
+								{
+									"key": "pageNumber",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查看订单数量",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMDAwMDAwIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiRG9jdG9yIiwibmJmIjoxNjYxMjYyMTI0LCJleHAiOjE2NjM5NDA1MjQsImlzcyI6IlRvbmdqaUhvc3BpdGFsLmNvbSIsImF1ZCI6IlRvbmdqaUhvc3BpdGFsLmNvbSJ9.ZZXKsRvMBt0NuNi_bCiCBxLDt8kiIdL1Gn4yilmBrco",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://118.31.108.144:8080/api/orders/forDoctor/1000000/count",
+							"protocol": "http",
+							"host": [
+								"118",
+								"31",
+								"108",
+								"144"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"orders",
+								"forDoctor",
+								"1000000",
+								"count"
 							]
 						}
 					},
@@ -885,7 +974,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMDAwMDAwIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiTWVkaWNpbmVUb2tlbiIsIm5iZiI6MTY2MDY2MzU3MiwiZXhwIjoxNjYwNzQ5OTcyLCJpc3MiOiJUb25namlIb3NwaXRhbC5jb20iLCJhdWQiOiJUb25namlIb3NwaXRhbC5jb20ifQ.G_fI6YoobAg9ie2VgfDctRNq-egRp__McNAbh00Dg3g",
+								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMDAwMDIyIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiRG9jdG9yIiwibmJmIjoxNjYxMDA4NDk4LCJleHAiOjE2NjM2ODY4OTgsImlzcyI6IlRvbmdqaUhvc3BpdGFsLmNvbSIsImF1ZCI6IlRvbmdqaUhvc3BpdGFsLmNvbSJ9.6DWqwTX9ehEZ-riuUAo9RRNQOsPqEjX-ArEMKzGipt0",
 								"type": "text"
 							}
 						],
@@ -915,6 +1004,40 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "搜索病人",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMDAwMDIyIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiRG9jdG9yIiwibmJmIjoxNjYxMDYyNDcxLCJleHAiOjE2NjM3NDA4NzEsImlzcyI6IlRvbmdqaUhvc3BpdGFsLmNvbSIsImF1ZCI6IlRvbmdqaUhvc3BpdGFsLmNvbSJ9.c9dgJtqNu9n2FfT2i0EUuDgjUrqwF8jkyrBDcKWEuls",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://118.31.108.144:8080/patients?keyword=普",
+							"protocol": "http",
+							"host": [
+								"118",
+								"31",
+								"108",
+								"144"
+							],
+							"port": "8080",
+							"path": [
+								"patients"
+							],
+							"query": [
+								{
+									"key": "keyword",
+									"value": "普"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -938,6 +1061,404 @@
 							"port": "8080",
 							"path": [
 								"department"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "员工信息模块",
+			"item": [
+				{
+					"name": "查看员工个人信息",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMDAwMDAwIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiRG9jdG9yIiwibmJmIjoxNjYxMjYyMTI0LCJleHAiOjE2NjM5NDA1MjQsImlzcyI6IlRvbmdqaUhvc3BpdGFsLmNvbSIsImF1ZCI6IlRvbmdqaUhvc3BpdGFsLmNvbSJ9.ZZXKsRvMBt0NuNi_bCiCBxLDt8kiIdL1Gn4yilmBrco",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://118.31.108.144:8080/staff/info",
+							"protocol": "http",
+							"host": [
+								"118",
+								"31",
+								"108",
+								"144"
+							],
+							"port": "8080",
+							"path": [
+								"staff",
+								"info"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "请假模块",
+			"item": [
+				{
+					"name": "申请请假",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMDAwMDAwIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiRG9jdG9yIiwibmJmIjoxNjYxMjYyMTI0LCJleHAiOjE2NjM5NDA1MjQsImlzcyI6IlRvbmdqaUhvc3BpdGFsLmNvbSIsImF1ZCI6IlRvbmdqaUhvc3BpdGFsLmNvbSJ9.ZZXKsRvMBt0NuNi_bCiCBxLDt8kiIdL1Gn4yilmBrco",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"FromTime\": \"2021-08-22\",\r\n    \"ToTime\": \"2021-09-22\",\r\n    \"Reason\": \"这条adminid和staffid一样是因为恰巧登陆了这个admin账号\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://118.31.108.144:8080/break/askForBreak",
+							"protocol": "http",
+							"host": [
+								"118",
+								"31",
+								"108",
+								"144"
+							],
+							"port": "8080",
+							"path": [
+								"break",
+								"askForBreak"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查看请假历史",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMDAwMDAwIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiRG9jdG9yIiwibmJmIjoxNjYxMjYyMTI0LCJleHAiOjE2NjM5NDA1MjQsImlzcyI6IlRvbmdqaUhvc3BpdGFsLmNvbSIsImF1ZCI6IlRvbmdqaUhvc3BpdGFsLmNvbSJ9.ZZXKsRvMBt0NuNi_bCiCBxLDt8kiIdL1Gn4yilmBrco",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://118.31.108.144:8080/break/history",
+							"protocol": "http",
+							"host": [
+								"118",
+								"31",
+								"108",
+								"144"
+							],
+							"port": "8080",
+							"path": [
+								"break",
+								"history"
+							]
+						},
+						"description": "员工（非管理员）用的"
+					},
+					"response": []
+				},
+				{
+					"name": "查看待批准列表",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMDAwMDAwIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiRG9jdG9yIiwibmJmIjoxNjYxMjYyMTI0LCJleHAiOjE2NjM5NDA1MjQsImlzcyI6IlRvbmdqaUhvc3BpdGFsLmNvbSIsImF1ZCI6IlRvbmdqaUhvc3BpdGFsLmNvbSJ9.ZZXKsRvMBt0NuNi_bCiCBxLDt8kiIdL1Gn4yilmBrco",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n"
+						},
+						"url": {
+							"raw": "http://118.31.108.144:8080/break/approveList",
+							"protocol": "http",
+							"host": [
+								"118",
+								"31",
+								"108",
+								"144"
+							],
+							"port": "8080",
+							"path": [
+								"break",
+								"approveList"
+							]
+						},
+						"description": "管理员进行查看"
+					},
+					"response": []
+				},
+				{
+					"name": "进行批准",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMDAwMDAwIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiRG9jdG9yIiwibmJmIjoxNjYxMjYyMTI0LCJleHAiOjE2NjM5NDA1MjQsImlzcyI6IlRvbmdqaUhvc3BpdGFsLmNvbSIsImF1ZCI6IlRvbmdqaUhvc3BpdGFsLmNvbSJ9.ZZXKsRvMBt0NuNi_bCiCBxLDt8kiIdL1Gn4yilmBrco",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Id\":\t\"9c19bda7-d609-4b6d-9b73-87d0b102562d\",\r\n    \"State\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://118.31.108.144:8080/break/approve",
+							"protocol": "http",
+							"host": [
+								"118",
+								"31",
+								"108",
+								"144"
+							],
+							"port": "8080",
+							"path": [
+								"break",
+								"approve"
+							]
+						},
+						"description": "state为1表示通过，为2表示不通过"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "辞职模块",
+			"item": [
+				{
+					"name": "申请辞职",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMDAwMDAwIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiRG9jdG9yIiwibmJmIjoxNjYxMTg3NDU1LCJleHAiOjE2NjEyNzM4NTUsImlzcyI6IlRvbmdqaUhvc3BpdGFsLmNvbSIsImF1ZCI6IlRvbmdqaUhvc3BpdGFsLmNvbSJ9.Z2Pe544MQsQKcpChlvR6xv200zopf8oaZ-jzE-B4ahU",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Time\": \"2021-08-22\",\r\n    \"Reason\": \"不想干了\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://118.31.108.144:8080/resign/askForResign",
+							"protocol": "http",
+							"host": [
+								"118",
+								"31",
+								"108",
+								"144"
+							],
+							"port": "8080",
+							"path": [
+								"resign",
+								"askForResign"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查看申请历史",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMDAwMDAwIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiRG9jdG9yIiwibmJmIjoxNjYxMTg3NDU1LCJleHAiOjE2NjEyNzM4NTUsImlzcyI6IlRvbmdqaUhvc3BpdGFsLmNvbSIsImF1ZCI6IlRvbmdqaUhvc3BpdGFsLmNvbSJ9.Z2Pe544MQsQKcpChlvR6xv200zopf8oaZ-jzE-B4ahU",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://118.31.108.144:8080/resign/history",
+							"protocol": "http",
+							"host": [
+								"118",
+								"31",
+								"108",
+								"144"
+							],
+							"port": "8080",
+							"path": [
+								"resign",
+								"history"
+							]
+						},
+						"description": "员工（非管理员）用的"
+					},
+					"response": []
+				},
+				{
+					"name": "查看待批准列表",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMDAwMDAwIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiRG9jdG9yIiwibmJmIjoxNjYxMTg3NDU1LCJleHAiOjE2NjEyNzM4NTUsImlzcyI6IlRvbmdqaUhvc3BpdGFsLmNvbSIsImF1ZCI6IlRvbmdqaUhvc3BpdGFsLmNvbSJ9.Z2Pe544MQsQKcpChlvR6xv200zopf8oaZ-jzE-B4ahU",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://118.31.108.144:8080/resign/approveList",
+							"protocol": "http",
+							"host": [
+								"118",
+								"31",
+								"108",
+								"144"
+							],
+							"port": "8080",
+							"path": [
+								"resign",
+								"approveList"
+							]
+						},
+						"description": "管理员进行查看"
+					},
+					"response": []
+				},
+				{
+					"name": "进行批准",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMDAwMDIxIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW4iLCJuYmYiOjE2NjExODA1MzksImV4cCI6MTY2MTI2NjkzOSwiaXNzIjoiVG9uZ2ppSG9zcGl0YWwuY29tIiwiYXVkIjoiVG9uZ2ppSG9zcGl0YWwuY29tIn0.BCacir7By0yD2i6RnavF3P64lHovO0QH1Ke-DyxZkzc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Id\":\t\"b5a07b7b-b431-4a00-8efa-a3165bc8adcd\",\r\n    \"State\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://118.31.108.144:8080/resign/approve",
+							"protocol": "http",
+							"host": [
+								"118",
+								"31",
+								"108",
+								"144"
+							],
+							"port": "8080",
+							"path": [
+								"resign",
+								"approve"
+							]
+						},
+						"description": "state为1表示通过，为2表示不通过"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "诊疗记录模块",
+			"item": [
+				{
+					"name": "查询诊疗记录",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMDAwMDAwIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiRG9jdG9yIiwibmJmIjoxNjYxMjYyMTI0LCJleHAiOjE2NjM5NDA1MjQsImlzcyI6IlRvbmdqaUhvc3BpdGFsLmNvbSIsImF1ZCI6IlRvbmdqaUhvc3BpdGFsLmNvbSJ9.ZZXKsRvMBt0NuNi_bCiCBxLDt8kiIdL1Gn4yilmBrco",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://118.31.108.144:8080/api/medicalRecord/1000000",
+							"protocol": "http",
+							"host": [
+								"118",
+								"31",
+								"108",
+								"144"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"medicalRecord",
+								"1000000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "添加诊疗记录",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMDAwMDAwIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiRG9jdG9yIiwibmJmIjoxNjYxMjYyMTI0LCJleHAiOjE2NjM5NDA1MjQsImlzcyI6IlRvbmdqaUhvc3BpdGFsLmNvbSIsImF1ZCI6IlRvbmdqaUhvc3BpdGFsLmNvbSJ9.ZZXKsRvMBt0NuNi_bCiCBxLDt8kiIdL1Gn4yilmBrco",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"PatientId\":1000000,\r\n    \"StaffId\": 2000000,\r\n    \"DiagnosticResult\":\"感冒、发烧\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://118.31.108.144:8080/api/medicalRecord",
+							"protocol": "http",
+							"host": [
+								"118",
+								"31",
+								"108",
+								"144"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"medicalRecord"
 							]
 						}
 					},
